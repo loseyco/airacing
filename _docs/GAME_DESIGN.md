@@ -6,7 +6,13 @@
 
 ## Elevator Pitch
 
-Players create virtual racing drivers with stats that map **1:1 to iRacing's AI driver parameters**. Drivers age every race, forcing roster decisions. Staff upgrades improve pit stops, strategy, and development. Real sponsors offer contracts based on performance. Races run in actual iRacing — real physics, real incidents, real results powering a full game economy.
+**You're not the driver. You're the friend who believed in them first.**
+
+Your buddy has the talent but no money, no connections, and no idea how hard this is going to be. You load the trailer. You make the calls. You find the sponsors. You keep them focused when they want to quit — and humble when they think they've made it.
+
+Drivers get the trophy. You get the satisfaction of knowing you built them.
+
+This is **Football Manager for motorsport** — but your star player has an ego, bad habits, a girlfriend who hates race weekends, and a habit of binning it in Turn 3.
 
 ---
 
@@ -155,13 +161,23 @@ This is the true soul of the game. Not a fantasy manager with a fat wallet — a
 ### 🏠 Chapter 1 — "The Mini Stock Grind"
 *Season: Local Short Track. Car: Mini Stock. Budget: Almost None.*
 
-You start with:
-- **One car**: A hand-built Mini Stock, half-painted and duct-taped together
-- **Zero paid staff**: Your girlfriend/buddy helps for free — but you still owe them gas money, food, and a thank-you
-- **A truck and trailer**: Every race weekend costs money just to show up — fuel, food, wear on the rig
-- **$15,000 in starting credits**: Enough to get through a season if you're careful
+**You** start with:
+- **One friend with a dream**: Your driver. They've raced go-karts, mowed lawns to save up. Talented, raw, completely unprepared for what's coming.
+- **A beat-up Mini Stock**: Half-painted. You helped build it in the driveway.
+- **Zero paid staff**: It's you and whoever shows up. Your driver's girlfriend. Your cousin.
+- **A truck and trailer**: The most expensive part. Every weekend costs money just to show up.
+- **$15,000 in starting credits**: Enough for a full Mini Stock season if nobody crashes big.
 
-#### 💸 Real Starting Costs Per Race Weekend
+#### 🧠 Your Driver Has a Personality
+Your driver isn't a spreadsheet. They have traits that create real problems:
+- **Overconfident**: Will push too hard in practice, wreck the car before feature night
+- **Streak racer**: Brilliant when on a roll, prone to tilting after a bad finish
+- **People pleaser**: Talks to sponsors great, but caves under pressure from the wrong people
+- **Grinder**: Slow to develop but never cracks. Safe choice for long seasons.
+
+You manage them. You push them when they're soft, pull them back when they're ego-driving into walls.
+
+#### 💸 Real Weekend Costs (Your Problem, Not Theirs)
 | Expense | Cost |
 |---|---|
 | Entry fee | $150–$500 |
@@ -171,17 +187,18 @@ You start with:
 | Crash repair parts (if needed) | $200–$1,500 |
 | **Total risk per weekend** | **$950–$2,600** |
 
-#### 👥 The "Free" Crew
-Your girlfriend/buddy helps out for love, not money. But:
-- You still pay for their meals, fuel, lodging at away races
-- They have a **Morale stat** — skip their birthday weekend for a race and Morale drops → they quit mid-season
-- Their skill level affects your pit stops (unpaid ≠ trained)
-- If you're a jerk to them, they leave. Drama ensues in the **social feed**.
+#### 👥 The Volunteer Crew
+The driver's girlfriend came out once. Your cousin helps if there's not a game on. A local mechanic shows up for free because he likes the smell of race fuel.
+- Volunteers have **Reliability** and **Skill** stats
+- Happy volunteers = fewer pit mistakes. Burnt-out volunteers = no-shows race day.
+- If your driver is a diva to the crew, people stop showing up.
 
-#### 🏁 Winning the Season
-- Finish Top-5 overall → earn your first **Regional Sponsor** ($500/race next season)
-- Win the Championship → unlock **Season 2: Regional Series** and your first *paid* crew hire
-- Get coverage in the local paper → 50 fans. First 500 fans unlock the **GridPass Profile** (real world integration)
+#### 🏁 Season Goals (Yours as the Manager)
+- Keep the car on track all season (don't run out of money)
+- Finish Top-5 to earn your driver their first **Regional Sponsor** ($500/race next season)
+- Land local media coverage → 50 fans → unlock **GridPass Driver Profile**
+- Don't let your driver's head get too big. Manage the ego.
+
 
 ---
 
