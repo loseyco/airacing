@@ -212,11 +212,13 @@ transactions/{txId}
 5. **Tailwind v4** — Uses `@tailwindcss/postcss`, NOT the old `tailwind.config.js` pattern.
 6. **SR Commander daemon lives at** `C:\_Projects\srcommander\daemon/` — Reference but don't modify.
 7. **🔒 CRITICAL — Security rules MUST be updated whenever a new collection or storage path is added.**
-   - **Firestore rules:** Edit and publish directly at the [Firestore Rules Console](https://console.firebase.google.com/u/0/project/gridpass/firestore/databases/airacing/security/rules) — the CLI does NOT reliably deploy to named databases.
-   - **Storage rules:** Edit and publish directly at the [Storage Rules Console](https://console.firebase.google.com/u/0/project/gridpass/storage/airacing.firebasestorage.app/rules)
-   - **Rule of thumb:** If you add a collection or storage path in code, add a matching rule BEFORE deploying the hosting update.
+   - **Firestore rules deploy:** `npx firebase deploy --only firestore` (deploys rules + indexes)
+   - `firebase.json` MUST use the **array format** with `"database": "airacing"` — otherwise rules go to the `(default)` DB
+   - **Firestore rules console:** https://console.firebase.google.com/u/0/project/gridpass/firestore/databases/airacing/security/rules
+   - **Storage rules deploy:** `npx firebase deploy --only storage`
+   - **Storage rules console:** https://console.firebase.google.com/u/0/project/gridpass/storage/airacing.firebasestorage.app/rules
+   - **Rule of thumb:** Add matching security rules BEFORE deploying new collections or storage paths.
    - **PowerShell note:** Use semicolons (`;`) to chain commands, not `&&`.
-   - **Named DB gotcha:** Our Firestore database is named `airacing`, NOT `(default)`. Rules must target the `airacing` database specifically via the console link above.
 
 ---
 
