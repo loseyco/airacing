@@ -301,7 +301,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-[var(--color-text-secondary)]">Races</span>
-                  <span className="font-bold">0</span>
+                  <span className="font-bold">{loadingDrivers ? "—" : drivers.reduce((sum, d) => sum + (d.races || 0), 0)}</span>
                 </div>
               </div>
             </div>
@@ -325,22 +325,22 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Getting Started Checklist */}
+            {/* Getting Started Checklist — Dynamic */}
             <div className="card p-5">
               <h3 className="font-bold mb-3 flex items-center gap-2">
                 <Clock className="w-4 h-4 text-[var(--color-racing-orange)]" />
-                Getting Started
+                Your Journey
               </h3>
               <div className="space-y-2">
-                {[
-                  { label: "Create account", done: true },
-                  { label: "Create your first driver", done: false },
-                  { label: "Enter a race", done: false },
-                  { label: "Complete a race", done: false },
-                  { label: "Hire your first staff member", done: false },
-                ].map((item, i) => (
+                {([
+                  { label: "Create your account", done: !!user },
+                  { label: "Set up your manager profile", done: !!(player as any)?.managerName },
+                  { label: "Create your driver", done: drivers.length > 0 },
+                  { label: "Run your first season", done: drivers.some(d => (d.races || 0) > 0) },
+                  { label: "Qualify for the AI Racing Championship", done: false },
+                ] as { label: string; done: boolean }[]).map((item, i) => (
                   <div key={i} className="flex items-center gap-2 text-sm">
-                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
                       item.done
                         ? "border-[var(--color-racing-green)] bg-[var(--color-racing-green)]"
                         : "border-[var(--color-border)]"

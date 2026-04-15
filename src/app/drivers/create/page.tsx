@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -32,9 +33,15 @@ const DEFAULT_STATS: DriverStats = {
 
 export default function CreateDriverPage() {
   const { user, player } = useAuth();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const fromOnboard = searchParams.get("fromOnboard") === "true";
+
   const [name, setName] = useState("");
   const [age, setAge] = useState(21);
   const [carNumber, setCarNumber] = useState("");
+  const [relation, setRelation] = useState("");
+  const [trait, setTrait] = useState("");
   const [stats, setStats] = useState<DriverStats>({ ...DEFAULT_STATS });
   const [colors, setColors] = useState({
     color1: "#ff3e3e",
@@ -43,6 +50,20 @@ export default function CreateDriverPage() {
   });
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+
+  // Pre-fill from onboarding sessionStorage
+  useEffect(() => {
+    if (fromOnboard) {
+      try {
+        const pending = JSON.parse(sessionStorage.getItem("pendingDriver") || "{}");
+        if (pending.name) setName(pending.name);
+        if (pending.age) setAge(pending.age);
+        if (pending.relation) setRelation(pending.relation);
+        if (pending.trait) setTrait(pending.trait);
+        sessionStorage.removeItem("pendingDriver");
+      } catch {}
+    }
+  }, [fromOnboard]);
 
   const totalPoints = STAT_KEYS.reduce((sum, key) => sum + stats[key], 0);
   const remaining = NEW_DRIVER_STAT_BUDGET - totalPoints;
@@ -70,15 +91,18 @@ export default function CreateDriverPage() {
     try {
       const newDriver = {
         playerId: user.uid,
-        playerName: player.displayName, // Denormalize for easier querying/UI
+        playerName: player.displayName,
         name: name.trim(),
         age,
+        relation: relation || null,
+        trait: trait || null,
         stats,
         totalStatPoints: totalPoints,
         level: 1,
         xp: 0,
+        races: 0,
         livery: {
-          carDesign: "0,0,0,0", 
+          carDesign: "0,0,0,0",
           suitDesign: "0,0,0,0",
           helmetDesign: "0,0,0,0",
           sponsor1: 0,
@@ -93,6 +117,8 @@ export default function CreateDriverPage() {
 
       await addDoc(collection(db, "drivers"), newDriver);
       setSaved(true);
+      // Redirect to dashboard after short delay
+      setTimeout(() => router.push("/dashboard"), 1500);
     } catch (err) {
       console.error("Failed to create driver:", err);
       alert("Failed to save driver. Check console.");
