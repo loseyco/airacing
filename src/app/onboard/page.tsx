@@ -178,13 +178,13 @@ export default function OnboardPage() {
                           key={r.id}
                           onClick={() => setRelation(r.id)}
                           className={`card p-4 text-left transition-all ${relation === r.id
-                            ? "ring-2 ring-[var(--color-racing-red)] bg-[rgba(255,62,62,0.08)] shadow-[0_0_15px_rgba(255,62,62,0.2)] border-transparent"
+                            ? "border-red-500 ring-1 ring-red-500 bg-red-500/10 shadow-[0_0_15px_rgba(239,68,68,0.15)]"
                             : "hover:border-[var(--color-text-muted)]"
                           }`}
                         >
                           <div className="flex justify-between items-start mb-2">
                             <span className="text-2xl">{r.icon}</span>
-                            <span className="text-[10px] font-bold text-[var(--color-racing-green)] tracking-wider px-2 py-0.5 rounded bg-[var(--color-racing-green)] bg-opacity-10">
+                            <span className="text-[10px] font-bold text-green-400 tracking-wider px-2 py-0.5 rounded bg-green-500/20">
                               ${r.startingBudget.toLocaleString()}
                             </span>
                           </div>
@@ -209,7 +209,7 @@ export default function OnboardPage() {
                           key={bg.id}
                           onClick={() => setManagerBg(bg.id)}
                           className={`card p-4 text-left transition-all ${managerBg === bg.id
-                            ? "ring-2 ring-[var(--color-racing-red)] bg-[rgba(255,62,62,0.08)] shadow-[0_0_15px_rgba(255,62,62,0.2)] border-transparent"
+                            ? "border-red-500 ring-1 ring-red-500 bg-red-500/10 shadow-[0_0_15px_rgba(239,68,68,0.15)]"
                             : "hover:border-[var(--color-text-muted)]"
                           }`}
                         >
