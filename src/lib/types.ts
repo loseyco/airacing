@@ -51,6 +51,7 @@ export interface Player {
     lng: number;
     name: string;
   };
+  onboardingComplete?: boolean;
   createdAt: Date;
 }
 

@@ -29,12 +29,14 @@ export default function DashboardPage() {
   const [drivers, setDrivers] = useState<any[]>([]);
   const [loadingDrivers, setLoadingDrivers] = useState(true);
 
-  // Redirect to landing if not logged in
+  // Redirect to landing if not logged in, or onboard if incomplete
   useEffect(() => {
     if (!loading && !user) {
       router.push("/");
+    } else if (!loading && player && !player.onboardingComplete) {
+      router.push("/onboard");
     }
-  }, [loading, user, router]);
+  }, [loading, user, player, router]);
 
   // Fetch Drivers
   useEffect(() => {
