@@ -290,8 +290,8 @@ export default function OnboardPage() {
                       </div>
                       <div className="flex-1">
                         <div className="font-bold text-sm">Starting Class: iRacing Mini Stock</div>
-                        <div className="text-xs text-[var(--color-text-muted)]">
-                          Everyone starts here. Cheap to run. Competitive. The perfect classroom.
+                        <div className="text-xs text-[var(--color-text-muted)] mt-1">
+                          They bought a broken-down Mini Stock off Facebook Marketplace. It's sitting in the driveway. Now they need your help to get it to the track.
                         </div>
                       </div>
                       <span className="text-[10px] font-bold text-[var(--color-racing-green)] border border-[var(--color-racing-green)] px-2 py-0.5 rounded">LOCKED IN</span>
