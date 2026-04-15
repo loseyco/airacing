@@ -34,7 +34,7 @@ export default function AdminDashboard() {
           getDocs(query(collection(db, "drivers"), orderBy("createdAt", "desc"), limit(100)))
         ]);
 
-        setPlayers(playersSnap.docs.map(d => ({ id: d.id, ...d.data() } as Player)));
+        setPlayers(playersSnap.docs.map(d => ({ uid: d.id, ...d.data() } as Player)));
         setDrivers(driversSnap.docs.map(d => ({ id: d.id, ...d.data() } as Driver)));
       } catch (err) {
         console.error("Failed to load admin data:", err);
@@ -150,12 +150,12 @@ export default function AdminDashboard() {
                 {drivers.map(d => {
                   const owner = players.find(p => p.uid === d.playerId);
                   const ovr = Math.round(
-                    ((d.stats.driverSkill || 0) + 
-                    (d.stats.driverAggression || 0) + 
-                    (d.stats.driverOptimism || 0) + 
-                    (d.stats.driverSmoothness || 0) + 
-                    (d.stats.pitCrewSkill || 0) + 
-                    (d.stats.strategyRiskiness || 0)) / 6
+                    ((d.stats.pace || 0) + 
+                    (d.stats.aggression || 0) + 
+                    (d.stats.confidence || 0) + 
+                    (d.stats.consistency || 0) + 
+                    (d.stats.pitCrew || 0) + 
+                    (d.stats.strategy || 0)) / 6
                   );
                   return (
                     <tr key={d.id} className="hover:bg-neutral-800/30 transition-colors">
