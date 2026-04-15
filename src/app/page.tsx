@@ -5,45 +5,66 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import {
-  Flag, Gauge, Trophy, ChevronRight, Zap, Users,
+  Flag, Trophy, ChevronRight, Zap, Users,
   Swords, ShieldCheck, Rocket, Wrench, Star, Clock,
-  CheckCircle2, Circle
+  CheckCircle2, Circle, MapPin, Gauge
 } from "lucide-react";
 
 const featuresLive = [
   {
-    icon: Gauge,
-    title: "Driver Stat System",
-    description: "6 real stats (Pace, Aggression, Confidence, Consistency, Pit Crew, Strategy) mapped 1:1 to iRacing AI behavior.",
+    icon: Rocket,
+    title: "Origin Story Flow",
+    description: "Create your manager profile (background, hometown) and your driver. Lock in your relationship — are they your friend, son, or just someone you discovered?",
     color: "#ff3e3e",
   },
   {
-    icon: Rocket,
-    title: "Origin Story Mode",
-    description: "Start broke. Build your friend into a pro. Simulated short-track seasons before the big leagues.",
+    icon: Gauge,
+    title: "Driver Stat System",
+    description: "6 real stats (Pace, Aggression, Confidence, Consistency, Pit Crew, Strategy) that will map 1:1 to iRacing AI behavior.",
     color: "#3388ff",
   },
   {
     icon: Wrench,
-    title: "RPG Training Actions",
-    description: "Spend credits on simulators, coaching sessions, and private testing. Every dollar shapes your driver.",
+    title: "RPG Training Options",
+    description: "Spend your limited budget to build your driver's stats. Rent simulators, hire coaches, or book private track testing.",
     color: "#00cc66",
   },
 ];
 
-const featuresComing = [
-  { icon: Flag, title: "Real iRacing Races", desc: "Your drivers compete in actual iRacing AI simulations when they qualify.", color: "#ff8800" },
-  { icon: Swords, title: "Drama & Rivalries", desc: "Pit lane fights, chat wars, post-race beefs. High drama = bigger fanbase.", color: "#ffcc00" },
-  { icon: ShieldCheck, title: "GridPass Staff IDs", desc: "Hire engineers with verified histories. Poach staff from rival teams.", color: "#8844ff" },
-  { icon: Users, title: "Crew Management", desc: "Volunteer crew to start. Keep morale up or they no-show race day.", color: "#00cc66" },
-  { icon: Trophy, title: "Sponsor Contracts", desc: "From local decals to title sponsors. Hit milestones or lose the deal.", color: "#ff3e3e" },
-  { icon: Star, title: "Championship Season", desc: "Earn your way into the global AI Racing Championship against real players.", color: "#3388ff" },
-];
-
-const roadmap = [
-  { phase: "Now", color: "#00cc66", items: ["Manager + Driver creation", "Simulated Mini Stock season", "Training & stat progression", "Driver profile pages"] },
-  { phase: "Q2 2026", color: "#ff8800", items: ["Real iRacing race integration", "Volunteer crew system", "Entry fees + travel costs", "Local sponsor tiers"] },
-  { phase: "Q3 2026", color: "#ff3e3e", items: ["AI Racing Championship season", "GridPass staff market", "Drama & rivalry system", "Global leaderboards"] },
+const roadmapItems = [
+  { 
+    phase: "Phase 4 (Next)", 
+    title: "Simulated Mini Stock Season",
+    color: "#ff8800", 
+    items: [
+      "No iRacing needed — statistical race engine", 
+      "8-race short track season", 
+      "Local Google Places tracks near your hometown",
+      "Manage real costs (fuel, tires, food)"
+    ] 
+  },
+  { 
+    phase: "Phase 5", 
+    title: "Real iRacing Integration",
+    color: "#ff3e3e", 
+    items: [
+      "Earn enough to qualify for the AI Racing Championship", 
+      "Parse real iRacing season schedules", 
+      "Daemon sync to execute real iRacing AI sessions",
+      "Live results feed back into the web economy"
+    ] 
+  },
+  { 
+    phase: "Phase 6", 
+    title: "Deep Team Management",
+    color: "#8844ff", 
+    items: [
+      "Hire pit crew & engineers via GridPass", 
+      "Sponsor milestone contracts", 
+      "Social & drama event feed",
+      "Multi-car team progression"
+    ] 
+  },
 ];
 
 const fadeUp = {
@@ -110,11 +131,11 @@ export default function LandingPage() {
             {/* Narrative headline */}
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05] mb-8" style={{ fontFamily: "var(--font-display)" }}>
               <span className="block text-[var(--color-text-secondary)] text-2xl md:text-3xl font-bold mb-3 tracking-normal">
-                Your friend has the talent.
+                Your driver bought a car off Marketplace.
               </span>
-              <span className="block text-[var(--color-text-primary)]">You have the</span>
+              <span className="block text-[var(--color-text-primary)]">Now they need your</span>
               <span className="block bg-gradient-to-r from-[#ff3e3e] to-[#ff8800] bg-clip-text text-transparent">
-                belief.
+                help to run it.
               </span>
             </h1>
 
@@ -123,7 +144,7 @@ export default function LandingPage() {
               keeps the car together, and keeps their head right after a bad race.
             </p>
             <p className="max-w-xl mx-auto text-base text-[var(--color-text-muted)] mb-10">
-              Start with a Mini Stock at a local short track. A beat-up truck. A borrowed trailer.
+              Start with a broken-down Mini Stock sitting in the driveway. A tight $50K pooled budget. A used truck and trailer.
               And a dream that's bigger than both of you.
             </p>
 
@@ -138,26 +159,6 @@ export default function LandingPage() {
               </button>
             </div>
           </motion.div>
-
-          {/* Journey steps */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.6 }}
-            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto"
-          >
-            {[
-              { value: "Mini Stock", label: "Where It Starts" },
-              { value: "$15K", label: "Starting Budget" },
-              { value: "8 Races", label: "First Season" },
-              { value: "iRacing", label: "Where It Ends Up" },
-            ].map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="text-2xl md:text-3xl font-black text-[var(--color-text-primary)]" style={{ fontFamily: "var(--font-display)" }}>
-                  {stat.value}
-                </div>
-                <div className="text-xs text-[var(--color-text-muted)] uppercase tracking-wider mt-1">{stat.label}</div>
-              </div>
-            ))}
-          </motion.div>
         </section>
 
         {/* ── LIVE NOW ── */}
@@ -165,10 +166,10 @@ export default function LandingPage() {
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center mb-12">
             <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-[#00cc6615] border border-[#00cc6633]">
               <CheckCircle2 className="w-4 h-4 text-[#00cc66]" />
-              <span className="text-sm font-bold text-[#00cc66]">Live Now</span>
+              <span className="text-sm font-bold text-[#00cc66]">What Works Right Now</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-black" style={{ fontFamily: "var(--font-display)" }}>
-              What You Can Do <span className="bg-gradient-to-r from-[#00cc66] to-[#3388ff] bg-clip-text text-transparent">Today</span>
+              Current <span className="bg-gradient-to-r from-[#00cc66] to-[#3388ff] bg-clip-text text-transparent">Features</span>
             </h2>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -184,50 +185,28 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ── COMING SOON ── */}
+        {/* ── ROADMAP ── */}
         <section className="pb-24">
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center mb-12">
             <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-[#ff880015] border border-[#ff880033]">
               <Clock className="w-4 h-4 text-[#ff8800]" />
-              <span className="text-sm font-bold text-[#ff8800]">Coming Soon</span>
+              <span className="text-sm font-bold text-[#ff8800]">In Development</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-black" style={{ fontFamily: "var(--font-display)" }}>
-              What's <span className="bg-gradient-to-r from-[#ff8800] to-[#ff3e3e] bg-clip-text text-transparent">Coming</span>
-            </h2>
-          </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {featuresComing.map((f, i) => (
-              <motion.div key={f.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeUp}
-                className="card p-5 border-dashed opacity-80 flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center" style={{ backgroundColor: `${f.color}15` }}>
-                  <f.icon className="w-5 h-5" style={{ color: f.color }} />
-                </div>
-                <div>
-                  <h3 className="font-bold mb-1 text-sm">{f.title}</h3>
-                  <p className="text-[var(--color-text-secondary)] text-xs leading-relaxed">{f.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── ROADMAP ── */}
-        <section className="pb-24">
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-black" style={{ fontFamily: "var(--font-display)" }}>
               The <span className="bg-gradient-to-r from-[#ff3e3e] to-[#ff8800] bg-clip-text text-transparent">Roadmap</span>
             </h2>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {roadmap.map((phase, i) => (
+            {roadmapItems.map((phase, i) => (
               <motion.div key={phase.phase} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
                 className="card p-8 border-t-4" style={{ borderTopColor: phase.color }}>
-                <div className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: phase.color }}>{phase.phase}</div>
-                <ul className="space-y-3">
+                <div className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: phase.color }}>{phase.phase}</div>
+                <h3 className="text-xl font-bold mb-6">{phase.title}</h3>
+                <ul className="space-y-4">
                   {phase.items.map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-sm text-[var(--color-text-secondary)]">
-                      <Circle className="w-3 h-3 flex-shrink-0" style={{ color: phase.color }} />
-                      {item}
+                    <li key={item} className="flex items-start gap-3 text-sm text-[var(--color-text-secondary)]">
+                      <Circle className="w-3 h-3 flex-shrink-0 mt-1" style={{ color: phase.color }} />
+                      <span className="leading-relaxed">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -249,11 +228,10 @@ export default function LandingPage() {
                   </span>
                 </h2>
                 <p className="text-[var(--color-text-secondary)] mb-8 max-w-lg mx-auto">
-                  Free to play. No iRacing required to start. Build your team from nothing
-                  and earn your way to the big leagues.
+                  Free to play. Start your story today and get ready for the simulated short track season launching soon.
                 </p>
                 <button onClick={handleStart} disabled={loading} className="btn-primary text-base px-10 py-4 inline-flex items-center gap-2">
-                  {user ? "Continue Your Story" : "Start for Free"}
+                  {user ? "Continue Your Story" : "Start Build Your Team"}
                   <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
