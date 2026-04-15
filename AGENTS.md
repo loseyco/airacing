@@ -212,6 +212,28 @@ transactions/{txId}
 
 ---
 
+## 🛡️ Admin & AI Team
+
+### Super Admin (Agent Account)
+- The AI agent has its own account for testing purposes
+- **Super admin powers:** Can assume/impersonate any player's account for debugging
+- Can create drivers, enter races, manage teams as if a real player
+- Use this for end-to-end testing of the full game loop
+
+### AI Racing House Team
+- The **"AI Racing"** brand has its own in-game team controlled by the agent
+- Competes against real players — gives rookies someone to beat
+- Drivers are managed just like a player's team (aging, staff, sponsors)
+- Creates narrative tension: "Can you beat the AI Racing factory team?"
+- Driver names and stats should be maintained and evolved over time
+
+### Account Impersonation (Admin Only)
+- Super admin can switch to view the app AS another player
+- Useful for debugging, testing economy balance, verifying results
+- Should log all impersonation events for audit trail
+
+---
+
 ## 📋 Current Status
 
 - [x] Next.js 16 scaffolded
