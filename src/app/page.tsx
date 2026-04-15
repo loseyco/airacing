@@ -76,14 +76,15 @@ const fadeUp = {
 };
 
 export default function LandingPage() {
-  const { user, loading, signInWithGoogle } = useAuth();
+  const { user, loading } = useAuth();
   const router = useRouter();
 
-  const handleStart = async () => {
+  const handleStart = () => {
     if (!user) {
-      await signInWithGoogle();
+      router.push("/login"); // Route to standard auth page
+    } else {
+      router.push("/onboard");
     }
-    router.push("/onboard");
   };
 
   return (
@@ -108,9 +109,9 @@ export default function LandingPage() {
           {user ? (
             <Link href="/dashboard" className="btn-primary text-sm">Dashboard</Link>
           ) : (
-            <button onClick={handleStart} className="btn-primary text-sm" disabled={loading}>
-              {loading ? "Loading..." : "Start Your Story"}
-            </button>
+            <Link href="/login" className="btn-primary text-sm">
+              Sign In
+            </Link>
           )}
         </div>
       </nav>

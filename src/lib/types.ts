@@ -51,6 +51,9 @@ export interface Player {
     lng: number;
     name: string;
   };
+  managerName?: string;
+  managerFirstName?: string;
+  managerLastName?: string;
   onboardingComplete?: boolean;
   createdAt: Date;
 }

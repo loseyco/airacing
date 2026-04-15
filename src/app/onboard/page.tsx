@@ -10,14 +10,14 @@ import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
 
 // ── Relationship options ────────────────────────────────────────────────────
 const relationships = [
-  { id: "best-friend",  icon: "🤜",  label: "Best Friend",    desc: "You've known each other forever. You believe in him more than he believes in himself." },
-  { id: "son",          icon: "👦",  label: "Son",            desc: "You raised him. Now you're going to the track every weekend together." },
-  { id: "daughter",     icon: "👧",  label: "Daughter",       desc: "She had the talent. You had no choice but to support it." },
-  { id: "brother",      icon: "🤝",  label: "Brother",        desc: "It's always been you two against the world." },
-  { id: "coworker",     icon: "🔧",  label: "Coworker",       desc: "You heard him talk about racing at lunch. Then you saw him drive." },
-  { id: "discovery",   icon: "⭐",  label: "Someone I Discovered", desc: "You saw something in him nobody else did. Raw. Unpolished. Real." },
-  { id: "father",       icon: "👨",  label: "Father",         desc: "He's your kid. You'd do anything to help him chase this." },
-  { id: "partner",      icon: "❤️",  label: "Partner",        desc: "You share everything — including the transport bills and every bad start." },
+  { id: "best-friend", icon: "🤜", label: "Best Friend", startingBudget: 35000, desc: "You pooled your savings. $35,000 to chase a dream." },
+  { id: "son",         icon: "👦", label: "Son", startingBudget: 60000, desc: "You dipped into his college fund. $60,000 to make it happen." },
+  { id: "daughter",    icon: "👧", label: "Daughter", startingBudget: 60000, desc: "You promised her mother you wouldn't do this. $60,000 budget." },
+  { id: "brother",     icon: "🤝", label: "Brother", startingBudget: 40000, desc: "Two brothers, one truck, and $40,000 to your names." },
+  { id: "coworker",    icon: "🔧", label: "Coworker", startingBudget: 25000, desc: "He convinced you at lunch. You scrounged exactly $25,000." },
+  { id: "discovery",   icon: "⭐", label: "Someone I Discovered", startingBudget: 80000, desc: "You're acting as an investor. $80,000 to get them going." },
+  { id: "father",      icon: "👨", label: "Father", startingBudget: 30000, desc: "He retired. You took out a $30,000 loan to get him back out there." },
+  { id: "partner",     icon: "❤️", label: "Partner", startingBudget: 50000, desc: "Your combined household savings. An even $50,000." },
 ];
 
 // ── Manager background options ─────────────────────────────────────────────
@@ -45,7 +45,8 @@ export default function OnboardPage() {
   const [saving, setSaving] = useState(false);
 
   // ── Your info ──────────────────────────────────────────────────────────────
-  const [managerName, setManagerName]     = useState(player?.displayName?.split(" ")[0] || "");
+  const [managerFirstName, setManagerFirstName] = useState(player?.displayName?.split(" ")[0] || "");
+  const [managerLastName, setManagerLastName]   = useState(player?.displayName?.split(" ").slice(1).join(" ") || "");
   const [managerCity, setManagerCity]     = useState("");
   const [relation, setRelation]           = useState("");
   const [managerBg, setManagerBg]         = useState("");
@@ -56,7 +57,7 @@ export default function OnboardPage() {
   const [driverCity, setDriverCity]   = useState("");
   const [driverTrait, setDriverTrait] = useState("");
 
-  const canProceedYou    = managerName.trim() && managerCity.trim() && relation && managerBg;
+  const canProceedYou    = managerFirstName.trim() && managerLastName.trim() && managerCity.trim() && relation && managerBg;
   const canProceedDriver = driverName.trim() && driverCity.trim() && driverTrait;
 
   const relationLabel = relationships.find(r => r.id === relation)?.label || "your driver";
@@ -64,12 +65,20 @@ export default function OnboardPage() {
   const handleFinish = async () => {
     if (!user || !canProceedDriver) return;
     setSaving(true);
+    
+    // Find the starting economy for this relationship
+    const relData = relationships.find(r => r.id === relation);
+    const updatedCredits = relData ? relData.startingBudget : 50000;
+
     try {
       await updateDoc(doc(db, "players", user.uid), {
-        managerName,
+        managerName: `${managerFirstName.trim()} ${managerLastName.trim()}`,
+        managerFirstName: managerFirstName.trim(),
+        managerLastName: managerLastName.trim(),
         managerCity,
         managerBackground: managerBg,
         relation,
+        credits: updatedCredits,
         onboardingComplete: true,
         updatedAt: serverTimestamp(),
       });
@@ -125,17 +134,26 @@ export default function OnboardPage() {
 
                 <div className="space-y-7">
                   {/* Name + Hometown */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-2">Your First Name</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-2">First Name</label>
                       <input
                         className="w-full bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-racing-red)] transition-colors"
                         placeholder="e.g. PJ"
-                        value={managerName}
-                        onChange={e => setManagerName(e.target.value)}
+                        value={managerFirstName}
+                        onChange={e => setManagerFirstName(e.target.value)}
                       />
                     </div>
                     <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-2">Last Name / RPG</label>
+                      <input
+                        className="w-full bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl px-4 py-3 focus:outline-none focus:border-[var(--color-racing-red)] transition-colors"
+                        placeholder="e.g. Losey"
+                        value={managerLastName}
+                        onChange={e => setManagerLastName(e.target.value)}
+                      />
+                    </div>
+                    <div className="sm:col-span-2 md:col-span-1">
                       <label className="block text-xs font-bold uppercase tracking-wider text-[var(--color-text-muted)] mb-2">Your Hometown</label>
                       <div className="relative">
                         <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
@@ -164,7 +182,12 @@ export default function OnboardPage() {
                             : "hover:border-[var(--color-text-muted)]"
                           }`}
                         >
-                          <div className="text-2xl mb-2">{r.icon}</div>
+                          <div className="flex justify-between items-start mb-2">
+                            <span className="text-2xl">{r.icon}</span>
+                            <span className="text-[10px] font-bold text-[var(--color-racing-green)] tracking-wider px-2 py-0.5 rounded bg-[var(--color-racing-green)] bg-opacity-10">
+                              ${r.startingBudget.toLocaleString()}
+                            </span>
+                          </div>
                           <div className="font-bold text-sm">{r.label}</div>
                         </button>
                       ))}
