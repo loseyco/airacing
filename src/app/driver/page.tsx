@@ -1,36 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { 
-  ArrowLeft, Zap, Timer, TrendingUp, User as UserIcon,
-  Sword, Shield, Dumbbell, Target, Trophy, History,
-  MessageSquare, ChevronRight, Loader2, Wallet, Users, Handshake, BarChart3
+import {
+  ArrowLeft, Zap, Dumbbell, Target, MessageSquare,
+  Loader2, Wallet, Users, Handshake, type LucideIcon,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { db } from "@/lib/firebase";
 import { doc, getDoc, updateDoc, increment, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { STAT_CONFIG, STAT_KEYS } from "@/lib/types";
 
-export default function DriverDetailPage() {
+function DriverDetailInner() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const { user, player } = useAuth();
-  const router = useRouter();
   const [driver, setDriver] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [performingAction, setPerformingAction] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id) { setLoading(false); return; }
     const fetchDriver = async () => {
-      const docRef = doc(db, "drivers", id);
-      const snap = await getDoc(docRef);
-      if (snap.exists()) {
-        setDriver({ id: snap.id, ...snap.data() });
-      }
+      const snap = await getDoc(doc(db, "drivers", id));
+      if (snap.exists()) setDriver({ id: snap.id, ...snap.data() });
       setLoading(false);
     };
     fetchDriver();
@@ -46,7 +41,7 @@ export default function DriverDetailPage() {
       await updateDoc(doc(db, "drivers", id!), updates);
       await addDoc(collection(db, "activities"), {
         driverId: id, playerId: user!.uid, type: "training",
-        label, cost, impact: statImpact, timestamp: serverTimestamp()
+        label, cost, impact: statImpact, timestamp: serverTimestamp(),
       });
       const snap = await getDoc(doc(db, "drivers", id!));
       setDriver({ id: snap.id, ...snap.data() });
@@ -58,21 +53,21 @@ export default function DriverDetailPage() {
     }
   };
 
-  if (!id || loading) return (
+  if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
       <Loader2 className="w-8 h-8 animate-spin text-[var(--color-racing-red)]" />
     </div>
   );
 
-  if (!driver) return (
+  if (!id || !driver) return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
       <h1 className="text-2xl font-bold mb-4">Driver not found</h1>
       <Link href="/dashboard" className="btn-secondary">Back to Dashboard</Link>
     </div>
   );
 
-  const activities: { id: string; label: string; desc: string; cost: number; icon: any; impact: Record<string, number>; color: string; }[] = [
-    { id: "sim-honda", label: "Honda Pro Simulator", desc: "Top-tier pro sim. High gains in Pace and Strategy.", cost: 5000, icon: Target, impact: { pace: 2, strategy: 1 }, color: "#ff3e3e" },
+  const activities: { id: string; label: string; desc: string; cost: number; icon: LucideIcon; impact: Record<string, number>; color: string }[] = [
+    { id: "sim-honda", label: "Honda Pro Simulator", desc: "Top-tier sim. High gains in Pace and Strategy.", cost: 5000, icon: Target, impact: { pace: 2, strategy: 1 }, color: "#ff3e3e" },
     { id: "coach", label: "Hire Driving Coach", desc: "One-on-one session. Boosts Confidence and Consistency.", cost: 3000, icon: Dumbbell, impact: { confidence: 2, consistency: 1 }, color: "#3388ff" },
     { id: "private-test", label: "Private Testing", desc: "Rent the track. Best for Aggression and Confidence.", cost: 8000, icon: Zap, impact: { aggression: 2, confidence: 1 }, color: "#ff8800" },
   ];
@@ -96,6 +91,7 @@ export default function DriverDetailPage() {
 
       <main className="max-w-6xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left: Info + Stats */}
           <div className="space-y-6">
             <div className="card p-6 overflow-hidden relative">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[var(--color-racing-red)] to-transparent opacity-5 -mr-16 -mt-16 rounded-full" />
@@ -122,7 +118,7 @@ export default function DriverDetailPage() {
                 </div>
                 <div className="bg-[var(--color-bg-card-hover)] p-3 rounded-xl border border-[var(--color-border)]">
                   <div className="text-[10px] text-[var(--color-text-muted)] uppercase tracking-widest mb-1">Races</div>
-                  <div className="text-2xl font-black text-[var(--color-text-primary)] font-mono">0</div>
+                  <div className="text-2xl font-black text-[var(--color-text-primary)] font-mono">{driver.races ?? 0}</div>
                 </div>
               </div>
             </div>
@@ -152,6 +148,7 @@ export default function DriverDetailPage() {
             </div>
           </div>
 
+          {/* Right: Training + History */}
           <div className="lg:col-span-2 space-y-8">
             <section>
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2" style={{ fontFamily: "var(--font-display)" }}>
@@ -191,40 +188,28 @@ export default function DriverDetailPage() {
             </section>
 
             <section>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold flex items-center gap-2" style={{ fontFamily: "var(--font-display)" }}>
-                  <MessageSquare className="w-5 h-5 text-[var(--color-racing-blue)]" />
-                  Social & Drama Feed
-                </h2>
-              </div>
-              <div className="card p-4 bg-[rgba(51,136,255,0.03)] border-dashed border-[var(--color-border)]">
-                <div className="flex gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[var(--color-border)] flex items-center justify-center text-lg">🏁</div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-bold text-sm">League News</span>
-                      <span className="text-[10px] text-[var(--color-text-muted)]">JUST NOW</span>
-                    </div>
-                    <p className="text-sm text-[var(--color-text-secondary)]">
-                      {driver.name} has just been registered for the seasonal scout program. Fans are starting to notice the rookie from #{driver.livery.carNumber}.
-                    </p>
-                  </div>
-                </div>
+              <h2 className="text-xl font-bold mb-4 flex items-center gap-2" style={{ fontFamily: "var(--font-display)" }}>
+                <MessageSquare className="w-5 h-5 text-[var(--color-racing-blue)]" />
+                Race History
+              </h2>
+              <div className="card p-8 border-dashed text-center">
+                <div className="text-3xl mb-3">🏁</div>
+                <p className="text-sm text-[var(--color-text-muted)]">No races yet. Complete your first season to see history here.</p>
               </div>
             </section>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
-                { icon: Users, label: "Staff & Crew", desc: "Hire pit crew chiefs and race engineers via GridPass to boost team-wide performance.", color: "var(--color-racing-green)" },
-                { icon: Handshake, label: "Sponsorships", desc: "Sign real-world brands to fund your team. Milestone-based contracts required.", color: "var(--color-racing-blue)" },
+                { icon: Users, label: "Staff & Crew", desc: "Hire pit crew chiefs and race engineers.", color: "var(--color-racing-green)" },
+                { icon: Handshake, label: "Sponsorships", desc: "Sign brands to fund your team.", color: "var(--color-racing-blue)" },
               ].map(s => (
                 <div key={s.label} className="card p-6 border-dashed opacity-75">
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-between mb-3">
                     <h3 className="font-bold flex items-center gap-2">
                       <s.icon className="w-4 h-4" style={{ color: s.color }} />
                       {s.label}
                     </h3>
-                    <span className="text-[10px] font-bold text-[var(--color-racing-orange)] uppercase tracking-wider border border-[var(--color-racing-orange)] px-1.5 py-0.5 rounded bg-[var(--color-racing-orange)] bg-opacity-10">Coming Soon</span>
+                    <span className="text-[10px] font-bold text-[var(--color-racing-orange)] border border-[var(--color-racing-orange)] px-1.5 py-0.5 rounded">#SOON</span>
                   </div>
                   <p className="text-xs text-[var(--color-text-secondary)]">{s.desc}</p>
                 </div>
@@ -234,5 +219,17 @@ export default function DriverDetailPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function DriverDetailPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-[var(--color-racing-red)]" />
+      </div>
+    }>
+      <DriverDetailInner />
+    </Suspense>
   );
 }

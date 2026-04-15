@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { motion, AnimatePresence } from "framer-motion";
@@ -31,7 +31,7 @@ const DEFAULT_STATS: DriverStats = {
   strategy: 34,
 };
 
-export default function CreateDriverPage() {
+function CreateDriverInner() {
   const { user, player } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -411,3 +411,12 @@ export default function CreateDriverPage() {
     </div>
   );
 }
+
+export default function CreateDriverPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="text-[var(--color-text-muted)]">Loading...</div></div>}>
+      <CreateDriverInner />
+    </Suspense>
+  );
+}
+
