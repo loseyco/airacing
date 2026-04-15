@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { db } from "@/lib/firebase";
+import { useAuth } from "@/lib/auth-context";
 import {
   ArrowLeft,
   ChevronRight,
@@ -28,6 +31,7 @@ const DEFAULT_STATS: DriverStats = {
 };
 
 export default function CreateDriverPage() {
+  const { user, player } = useAuth();
   const [name, setName] = useState("");
   const [age, setAge] = useState(21);
   const [carNumber, setCarNumber] = useState("");
@@ -60,12 +64,41 @@ export default function CreateDriverPage() {
   const resetStats = () => setStats({ ...DEFAULT_STATS });
 
   const handleSave = async () => {
-    if (!name.trim() || !carNumber.trim()) return;
+    if (!name.trim() || !carNumber.trim() || !user || !player) return;
     setSaving(true);
-    // TODO: Save to Firebase
-    await new Promise((r) => setTimeout(r, 1500));
-    setSaved(true);
-    setSaving(false);
+    
+    try {
+      const newDriver = {
+        playerId: user.uid,
+        playerName: player.displayName, // Denormalize for easier querying/UI
+        name: name.trim(),
+        age,
+        stats,
+        totalStatPoints: totalPoints,
+        level: 1,
+        xp: 0,
+        livery: {
+          carDesign: "0,0,0,0", 
+          suitDesign: "0,0,0,0",
+          helmetDesign: "0,0,0,0",
+          sponsor1: 0,
+          sponsor2: 0,
+          carNumber: carNumber,
+          color1: colors.color1,
+          color2: colors.color2,
+          color3: colors.color3,
+        },
+        createdAt: serverTimestamp(),
+      };
+
+      await addDoc(collection(db, "drivers"), newDriver);
+      setSaved(true);
+    } catch (err) {
+      console.error("Failed to create driver:", err);
+      alert("Failed to save driver. Check console.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const isValid = name.trim().length > 0 && carNumber.trim().length > 0 && remaining >= 0;

@@ -16,6 +16,10 @@ import {
   Timer,
   Wrench,
   Handshake,
+  MessagesSquare,
+  Swords,
+  Rocket,
+  ShieldCheck,
 } from "lucide-react";
 
 const features = [
@@ -34,24 +38,24 @@ const features = [
     color: "#ff8800",
   },
   {
-    icon: Timer,
-    title: "Driver Aging",
+    icon: Swords,
+    title: "Drama & Rivalries",
     description:
-      "Drivers age every race. Peak at 29-34, decline after 35, forced retirement at 46. Manage your roster wisely.",
+      "Pit lane fights, post-race beefs, and chat wars. Your choices impact driver mood and fan growth.",
     color: "#ffcc00",
   },
   {
-    icon: Wrench,
-    title: "Staff & Upgrades",
+    icon: ShieldCheck,
+    title: "GridPass Staff IDs",
     description:
-      "Hire pit crew chiefs, race engineers, driver coaches. Level them up. Team-wide performance boosts.",
+      "Hire staff verified via the GridPass ecosystem. Every engineer and crew chief has a recorded history.",
     color: "#00cc66",
   },
   {
-    icon: Handshake,
-    title: "Real Sponsors",
+    icon: Rocket,
+    title: "Career Mode",
     description:
-      "Earn sponsor contracts based on performance. Meet goals or lose the deal. Sponsors show on your car.",
+      "From novice leagues back home to the Global championship. A story of a team built from nothing.",
     color: "#3388ff",
   },
   {
@@ -60,6 +64,21 @@ const features = [
     description:
       "Chase championship points across full seasons. Real prizes for top performers. Build your legacy.",
     color: "#8844ff",
+  },
+];
+
+const roadmap = [
+  {
+    title: "Next Gen Stats",
+    items: ["Advanced telemetry parsing", "Driver injury lifecycle", "Engine wear tracking"],
+  },
+  {
+    title: "Social Ecosystem",
+    items: ["AI Chat Wars", "Pit Lane conflict choices", "Fanbase management"],
+  },
+  {
+    title: "Pro Operations",
+    items: ["GridPass Staff Scouting", "Livery shop (TP link)", "Sponsorship tiers"],
   },
 ];
 
@@ -290,6 +309,49 @@ export default function LandingPage() {
               </motion.div>
             ))}
           </div>
+        </motion.div>
+
+        {/* Roadmap / Coming Soon */}
+        <motion.div
+           initial={{ opacity: 0 }}
+           whileInView={{ opacity: 1 }}
+           viewport={{ once: true }}
+           className="mt-32"
+        >
+           <h2
+             className="text-3xl md:text-4xl font-black mb-16 text-center"
+             style={{ fontFamily: "var(--font-display)" }}
+           >
+             Roadmap &{" "}
+             <span className="bg-gradient-to-r from-[#ff3e3e] to-[#ff8800] bg-clip-text text-transparent">
+               Expansion
+             </span>
+           </h2>
+
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {roadmap.map((phase, i) => (
+                <motion.div
+                   key={phase.title}
+                   custom={i}
+                   initial="hidden"
+                   whileInView="visible"
+                   viewport={{ once: true }}
+                   variants={fadeUp}
+                   className="card p-8 border-t-4"
+                   style={{ borderTopColor: features[i+3].color }}
+                >
+                   <h3 className="text-xl font-bold mb-6">{phase.title}</h3>
+                   <ul className="space-y-4">
+                      {phase.items.map((item) => (
+                        <li key={item} className="flex items-center gap-3 text-sm text-[var(--color-text-secondary)]">
+                           <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-racing-red)]" />
+                           {item}
+                        </li>
+                      ))}
+                   </ul>
+                </motion.div>
+              ))}
+           </div>
         </motion.div>
 
         {/* Bottom CTA */}
