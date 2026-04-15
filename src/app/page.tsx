@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
 import {
   Flag,
   Gauge,
@@ -11,49 +13,52 @@ import {
   Zap,
   Users,
   BarChart3,
+  Timer,
+  Wrench,
+  Handshake,
 } from "lucide-react";
 
 const features = [
   {
     icon: Gauge,
-    title: "6 Driver Stats",
+    title: "6 Real Driver Stats",
     description:
-      "Pace, Aggression, Confidence, Consistency, Pit Crew, Strategy — each maps directly to iRacing AI behavior.",
+      "Pace, Aggression, Confidence, Consistency, Pit Crew, Strategy — each maps 1:1 to iRacing AI behavior.",
     color: "#ff3e3e",
   },
   {
     icon: Flag,
-    title: "Real Races",
+    title: "Real iRacing Races",
     description:
       "Your drivers compete in actual iRacing AI simulations. Real physics, real incidents, real results.",
     color: "#ff8800",
   },
   {
-    icon: Wallet,
-    title: "Game Economy",
+    icon: Timer,
+    title: "Driver Aging",
     description:
-      "Earn credits from wins, spend on travel, repairs, and upgrades. Build your racing empire.",
+      "Drivers age every race. Peak at 29-34, decline after 35, forced retirement at 46. Manage your roster wisely.",
     color: "#ffcc00",
   },
   {
-    icon: Trophy,
-    title: "Championships",
+    icon: Wrench,
+    title: "Staff & Upgrades",
     description:
-      "Compete across full seasons. Chase championship points and fight for the title.",
+      "Hire pit crew chiefs, race engineers, driver coaches. Level them up. Team-wide performance boosts.",
     color: "#00cc66",
   },
   {
-    icon: Users,
-    title: "Build Your Team",
+    icon: Handshake,
+    title: "Real Sponsors",
     description:
-      "Start with one driver, grow into a multi-car team. Hire staff, attract sponsors.",
+      "Earn sponsor contracts based on performance. Meet goals or lose the deal. Sponsors show on your car.",
     color: "#3388ff",
   },
   {
-    icon: BarChart3,
-    title: "Deep Analytics",
+    icon: Trophy,
+    title: "Championships & Prizes",
     description:
-      "Track lap times, compare rivals, study race data. Every detail feeds into your strategy.",
+      "Chase championship points across full seasons. Real prizes for top performers. Build your legacy.",
     color: "#8844ff",
   },
 ];
@@ -68,6 +73,18 @@ const fadeUp = {
 };
 
 export default function LandingPage() {
+  const { user, loading, signInWithGoogle } = useAuth();
+  const router = useRouter();
+
+  const handleGetStarted = async () => {
+    if (user) {
+      router.push("/dashboard");
+    } else {
+      await signInWithGoogle();
+      router.push("/dashboard");
+    }
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Hero glow effects */}
@@ -90,15 +107,15 @@ export default function LandingPage() {
           </span>
         </div>
         <div className="flex items-center gap-4">
-          <Link
-            href="/dashboard"
-            className="btn-secondary text-sm hidden sm:inline-flex"
-          >
-            Dashboard
-          </Link>
-          <Link href="/dashboard" className="btn-primary text-sm">
-            Get Started
-          </Link>
+          {user ? (
+            <Link href="/dashboard" className="btn-primary text-sm">
+              Dashboard
+            </Link>
+          ) : (
+            <button onClick={handleGetStarted} className="btn-primary text-sm" disabled={loading}>
+              {loading ? "Loading..." : "Sign In"}
+            </button>
+          )}
         </div>
       </nav>
 
@@ -107,7 +124,7 @@ export default function LandingPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center"
         >
           {/* Badge */}
@@ -119,7 +136,7 @@ export default function LandingPage() {
           >
             <Zap className="w-4 h-4 text-[#ff3e3e]" />
             <span className="text-sm text-[#ff3e3e] font-medium">
-              Powered by Real iRacing Simulations
+              Powered by Real iRacing AI Simulations
             </span>
           </motion.div>
 
@@ -137,25 +154,21 @@ export default function LandingPage() {
 
           {/* Subtitle */}
           <p className="max-w-2xl mx-auto text-lg md:text-xl text-[var(--color-text-secondary)] mb-10 leading-relaxed">
-            Create racing drivers with real stats. Compete in iRacing AI
-            simulations. Build your motorsport empire from the ground up.
+            Create drivers with real stats. Watch them compete in iRacing AI
+            races. Manage aging, staff, sponsors, and a full economy.
+            Build your motorsport empire.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/drivers/create"
+            <button
+              onClick={handleGetStarted}
+              disabled={loading}
               className="btn-primary text-base px-10 py-4 flex items-center gap-2"
             >
-              Create Your Driver
+              {user ? "Go to Dashboard" : "Start Racing — It's Free"}
               <ChevronRight className="w-5 h-5" />
-            </Link>
-            <Link
-              href="/series"
-              className="btn-secondary text-base px-10 py-4"
-            >
-              Browse Series
-            </Link>
+            </button>
           </div>
         </motion.div>
 
@@ -168,9 +181,9 @@ export default function LandingPage() {
         >
           {[
             { value: "6", label: "Driver Stats" },
-            { value: "200+", label: "Tracks" },
-            { value: "∞", label: "Race Combinations" },
             { value: "50K", label: "Starting Credits" },
+            { value: "∞", label: "Race Strategies" },
+            { value: "46", label: "Max Driver Age" },
           ].map((stat, i) => (
             <div key={i} className="text-center">
               <div
@@ -237,22 +250,22 @@ export default function LandingPage() {
               {
                 step: "01",
                 title: "Create Driver",
-                desc: "Name your driver, allocate 200 stat points across 6 categories",
+                desc: "Name your driver, allocate 200 stat points. Choose livery colors and car number.",
               },
               {
                 step: "02",
-                title: "Enter Race",
-                desc: "Browse series, pick a race, pay entry fees and travel costs",
+                title: "Build Your Team",
+                desc: "Hire staff, manage aging drivers, run training programs. Attract sponsors.",
               },
               {
                 step: "03",
-                title: "Watch & Wait",
-                desc: "Your AI driver competes in a real iRacing simulation",
+                title: "Race in iRacing",
+                desc: "Your AI drivers compete in real iRacing simulations. Real physics, real results.",
               },
               {
                 step: "04",
-                title: "Collect Rewards",
-                desc: "Earn credits, XP, and championship points from results",
+                title: "Grow Your Empire",
+                desc: "Earn credits, level up, sign bigger sponsors. Chase the championship.",
               },
             ].map((item, i) => (
               <motion.div
@@ -296,17 +309,18 @@ export default function LandingPage() {
                 Ready to Race?
               </h2>
               <p className="text-[var(--color-text-secondary)] mb-8 max-w-lg mx-auto">
-                Start with 50,000 credits and 200 stat points. Build your
-                driver, enter your first race, and begin your championship
-                journey.
+                Start with 50,000 credits. Create your first driver.
+                Build a team. Chase the championship. Your motorsport
+                empire starts here.
               </p>
-              <Link
-                href="/drivers/create"
+              <button
+                onClick={handleGetStarted}
+                disabled={loading}
                 className="btn-primary text-base px-10 py-4 inline-flex items-center gap-2"
               >
-                Start Racing Now
+                {user ? "Go to Dashboard" : "Sign Up Free"}
                 <ChevronRight className="w-5 h-5" />
-              </Link>
+              </button>
             </div>
           </div>
         </motion.div>

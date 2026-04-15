@@ -1,7 +1,11 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
+import { STAT_CONFIG } from "@/lib/types";
 import {
   Flag,
   Gauge,
@@ -13,58 +17,35 @@ import {
   Clock,
   ChevronRight,
   Users,
+  LogOut,
+  Loader2,
 } from "lucide-react";
-import { STAT_CONFIG } from "@/lib/types";
-
-// Placeholder data until Firebase is wired
-const MOCK_PLAYER = {
-  displayName: "PJ Losey",
-  credits: 50000,
-};
-
-const MOCK_DRIVERS = [
-  {
-    id: "1",
-    name: "Brian Simpson",
-    carNumber: "1",
-    level: 1,
-    stats: { pace: 76, aggression: 27, confidence: 71, consistency: 61, pitCrew: 74, strategy: 45 },
-    color1: "#284a94",
-    color2: "#111111",
-  },
-];
-
-const MOCK_UPCOMING_RACES = [
-  {
-    id: "r1",
-    trackName: "Atlanta Motor Speedway - Oval",
-    series: "GR86 Cup",
-    date: "Round 1",
-    entryFee: 1000,
-    status: "open",
-  },
-  {
-    id: "r2",
-    trackName: "Daytona International Speedway",
-    series: "ARCA Menards",
-    date: "Round 3",
-    entryFee: 2000,
-    status: "open",
-  },
-];
-
-const MOCK_RECENT_RESULTS = [
-  {
-    id: "res1",
-    trackName: "Charlotte Motor Speedway",
-    position: 3,
-    earned: 3200,
-    incidents: 2,
-  },
-];
 
 export default function DashboardPage() {
-  const player = MOCK_PLAYER;
+  const { user, player, loading, signOut } = useAuth();
+  const router = useRouter();
+
+  // Redirect to landing if not logged in
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/");
+    }
+  }, [loading, user, router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 animate-spin text-[var(--color-racing-red)] mx-auto mb-4" />
+          <p className="text-[var(--color-text-secondary)]">Loading your garage...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user || !player) {
+    return null; // Will redirect
+  }
 
   return (
     <div className="min-h-screen">
@@ -92,6 +73,13 @@ export default function DashboardPage() {
                 ${player.credits.toLocaleString()}
               </span>
             </div>
+            <button
+              onClick={signOut}
+              className="p-2 rounded-lg border border-[var(--color-border)] hover:border-[var(--color-text-muted)] transition-colors"
+              title="Sign out"
+            >
+              <LogOut className="w-4 h-4 text-[var(--color-text-secondary)]" />
+            </button>
           </div>
         </div>
       </nav>
@@ -104,7 +92,10 @@ export default function DashboardPage() {
           className="mb-8"
         >
           <h1 className="text-3xl font-black" style={{ fontFamily: "var(--font-display)" }}>
-            Welcome back, <span className="bg-gradient-to-r from-[#ff3e3e] to-[#ff8800] bg-clip-text text-transparent">{player.displayName}</span>
+            Welcome back,{" "}
+            <span className="bg-gradient-to-r from-[#ff3e3e] to-[#ff8800] bg-clip-text text-transparent">
+              {player.displayName}
+            </span>
           </h1>
           <p className="text-[var(--color-text-secondary)] mt-1">
             Manage your drivers, enter races, and build your empire.
@@ -115,9 +106,9 @@ export default function DashboardPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
             { icon: Wallet, label: "Credits", value: `$${player.credits.toLocaleString()}`, color: "#00cc66" },
-            { icon: Users, label: "Drivers", value: MOCK_DRIVERS.length.toString(), color: "#3388ff" },
-            { icon: Trophy, label: "Best Finish", value: "P3", color: "#ffcc00" },
-            { icon: TrendingUp, label: "Season Rank", value: "#12", color: "#ff8800" },
+            { icon: Users, label: "Drivers", value: "0", color: "#3388ff" },
+            { icon: Trophy, label: "Best Finish", value: "—", color: "#ffcc00" },
+            { icon: TrendingUp, label: "Season Rank", value: "—", color: "#ff8800" },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -140,9 +131,9 @@ export default function DashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Drivers Column */}
+          {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* My Drivers */}
+            {/* My Drivers — Empty State */}
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
@@ -154,132 +145,73 @@ export default function DashboardPage() {
                 </Link>
               </div>
 
-              {MOCK_DRIVERS.length === 0 ? (
-                <div className="card p-12 text-center">
-                  <Gauge className="w-12 h-12 text-[var(--color-text-muted)] mx-auto mb-4" />
-                  <h3 className="text-lg font-bold mb-2">No Drivers Yet</h3>
-                  <p className="text-sm text-[var(--color-text-secondary)] mb-6">
-                    Create your first driver to start racing.
-                  </p>
-                  <Link href="/drivers/create" className="btn-primary inline-flex items-center gap-2">
-                    <Plus className="w-4 h-4" />
-                    Create Driver
-                  </Link>
+              <div className="card p-12 text-center">
+                <div className="w-16 h-16 rounded-2xl bg-[rgba(255,62,62,0.1)] flex items-center justify-center mx-auto mb-4">
+                  <Gauge className="w-8 h-8 text-[var(--color-racing-red)]" />
                 </div>
-              ) : (
-                <div className="space-y-4">
-                  {MOCK_DRIVERS.map((driver) => (
-                    <motion.div
-                      key={driver.id}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      className="card p-5 flex items-center gap-5"
-                    >
-                      {/* Driver color strip */}
-                      <div className="w-14 h-14 rounded-xl flex items-center justify-center font-black text-xl"
-                        style={{
-                          background: `linear-gradient(135deg, ${driver.color1}, ${driver.color2})`,
-                          fontFamily: "var(--font-display)",
-                        }}
-                      >
-                        {driver.carNumber}
-                      </div>
-
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          <h3 className="font-bold truncate">{driver.name}</h3>
-                          <span className="badge badge-blue">Lv.{driver.level}</span>
-                        </div>
-                        {/* Mini stat bars */}
-                        <div className="flex gap-1 mt-2">
-                          {Object.entries(driver.stats).map(([key, val]) => (
-                            <div key={key} className="flex-1 h-1.5 bg-[var(--color-bg-secondary)] rounded-full overflow-hidden">
-                              <div
-                                className="h-full rounded-full"
-                                style={{
-                                  width: `${val}%`,
-                                  backgroundColor: (STAT_CONFIG as Record<string, { color: string }>)[key]?.color || "#888",
-                                }}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <Link href="/series" className="btn-secondary text-xs px-3 py-1.5 flex items-center gap-1">
-                        Race <ChevronRight className="w-3 h-3" />
-                      </Link>
-                    </motion.div>
-                  ))}
-                </div>
-              )}
+                <h3 className="text-lg font-bold mb-2">No Drivers Yet</h3>
+                <p className="text-sm text-[var(--color-text-secondary)] mb-6 max-w-sm mx-auto">
+                  Create your first driver to start racing. You have 200 stat
+                  points to allocate across Pace, Aggression, Confidence,
+                  Consistency, Pit Crew, and Strategy.
+                </p>
+                <Link href="/drivers/create" className="btn-primary inline-flex items-center gap-2">
+                  <Plus className="w-4 h-4" />
+                  Create Your First Driver
+                </Link>
+              </div>
             </div>
 
-            {/* Recent Results */}
+            {/* Recent Results — Empty State */}
             <div>
               <h2 className="text-xl font-bold mb-4" style={{ fontFamily: "var(--font-display)" }}>
                 Recent Results
               </h2>
-              {MOCK_RECENT_RESULTS.length === 0 ? (
-                <div className="card p-8 text-center">
-                  <p className="text-sm text-[var(--color-text-secondary)]">
-                    No races completed yet. Enter your first race!
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {MOCK_RECENT_RESULTS.map((result) => (
-                    <div key={result.id} className="card p-4 flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="race-position text-2xl font-black" style={{
-                          color: result.position <= 3 ? "#ffcc00" : "var(--color-text-primary)",
-                          fontFamily: "var(--font-display)",
-                        }}>
-                          P{result.position}
-                        </div>
-                        <div>
-                          <div className="font-semibold text-sm">{result.trackName}</div>
-                          <div className="text-xs text-[var(--color-text-muted)]">
-                            {result.incidents}x incidents
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-bold text-[var(--color-racing-green)]" style={{ fontFamily: "var(--font-mono)" }}>
-                          +${result.earned.toLocaleString()}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div className="card p-8 text-center">
+                <Trophy className="w-8 h-8 text-[var(--color-text-muted)] mx-auto mb-3" />
+                <p className="text-sm text-[var(--color-text-secondary)]">
+                  No races completed yet. Create a driver and enter your first race!
+                </p>
+              </div>
             </div>
           </div>
 
           {/* Right Sidebar */}
           <div className="space-y-6">
-            {/* Upcoming Races */}
-            <div>
-              <h2 className="text-xl font-bold mb-4" style={{ fontFamily: "var(--font-display)" }}>
-                Upcoming Races
-              </h2>
-              <div className="space-y-3">
-                {MOCK_UPCOMING_RACES.map((race) => (
-                  <div key={race.id} className="card p-4 racing-stripe pl-6">
-                    <div className="text-xs text-[var(--color-text-muted)] uppercase tracking-wider mb-1">
-                      {race.series} • {race.date}
-                    </div>
-                    <div className="font-semibold text-sm mb-2">{race.trackName}</div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-[var(--color-text-secondary)]">
-                        Entry: <span className="text-[var(--color-racing-orange)] font-bold">${race.entryFee.toLocaleString()}</span>
-                      </span>
-                      <Link href={`/races/${race.id}`} className="text-xs text-[var(--color-racing-red)] font-semibold hover:underline flex items-center gap-1">
-                        Enter <ChevronRight className="w-3 h-3" />
-                      </Link>
-                    </div>
+            {/* Player Card */}
+            <div className="card p-5">
+              <div className="flex items-center gap-3 mb-4">
+                {user.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt={player.displayName}
+                    className="w-10 h-10 rounded-full border-2 border-[var(--color-border)]"
+                  />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#ff3e3e] to-[#ff8800] flex items-center justify-center text-sm font-bold">
+                    {player.displayName.charAt(0)}
                   </div>
-                ))}
+                )}
+                <div>
+                  <div className="font-bold text-sm">{player.displayName}</div>
+                  <div className="text-xs text-[var(--color-text-muted)]">{player.email}</div>
+                </div>
+              </div>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-[var(--color-text-secondary)]">Credits</span>
+                  <span className="font-bold text-[var(--color-racing-green)]" style={{ fontFamily: "var(--font-mono)" }}>
+                    ${player.credits.toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[var(--color-text-secondary)]">Drivers</span>
+                  <span className="font-bold">0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[var(--color-text-secondary)]">Races</span>
+                  <span className="font-bold">0</span>
+                </div>
               </div>
             </div>
 
@@ -302,18 +234,37 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Season Progress Placeholder */}
+            {/* Getting Started Checklist */}
             <div className="card p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <Clock className="w-4 h-4 text-[var(--color-text-muted)]" />
-                <h3 className="font-bold text-sm">Season Progress</h3>
-              </div>
-              <div className="stat-bar mb-2">
-                <div className="stat-bar-fill bg-gradient-to-r from-[#ff3e3e] to-[#ff8800]" style={{ width: "15%" }} />
-              </div>
-              <div className="flex justify-between text-xs text-[var(--color-text-muted)]">
-                <span>Race 1 of 12</span>
-                <span>15%</span>
+              <h3 className="font-bold mb-3 flex items-center gap-2">
+                <Clock className="w-4 h-4 text-[var(--color-racing-orange)]" />
+                Getting Started
+              </h3>
+              <div className="space-y-2">
+                {[
+                  { label: "Create account", done: true },
+                  { label: "Create your first driver", done: false },
+                  { label: "Enter a race", done: false },
+                  { label: "Complete a race", done: false },
+                  { label: "Hire your first staff member", done: false },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2 text-sm">
+                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                      item.done
+                        ? "border-[var(--color-racing-green)] bg-[var(--color-racing-green)]"
+                        : "border-[var(--color-border)]"
+                    }`}>
+                      {item.done && (
+                        <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                        </svg>
+                      )}
+                    </div>
+                    <span className={item.done ? "text-[var(--color-text-muted)] line-through" : "text-[var(--color-text-secondary)]"}>
+                      {item.label}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
