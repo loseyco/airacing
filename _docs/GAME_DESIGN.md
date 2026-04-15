@@ -16,6 +16,42 @@ This is **Football Manager for motorsport** — but your star player has an ego,
 
 ---
 
+## 🚀 Onboarding Flow
+
+### Step 1: Who Are You?
+Player creates their **Manager Character**:
+- Name, hometown, background (former mechanic? ex-karter? racing fan with a dream?)
+- Determines starting perks (e.g., Mechanic background → lower repair costs; Ex-Driver → better coaching bonuses)
+
+### Step 2: Who's Your Driver?
+Player creates their **Driver** — your friend:
+- Name, age, hometown
+- Pick a **Personality Trait** (sets behavioral tendencies for the whole career):
+  - 🔥 **Overconfident** — pushes hard, wrecks often early on, peaks fast
+  - 🧠 **Methodical** — slow to develop but never cracks under pressure
+  - 🌟 **Crowd Pleaser** — great with sponsors, struggles when behind
+  - 🎯 **Streak Racer** — hot streaks and cold slumps, high variance
+
+### Step 3: The Simulated Mini Stock Season
+**No iRacing required.** The game statistically simulates 8 local short-track races.
+- Race outcomes are calculated from your driver's stats, car condition, crew performance, and random events
+- You make manager decisions each week: train, fix the car, manage money, handle drama
+- This serves as the **tutorial AND the soul of the game**
+
+### Step 4: Qualifying for the AI Racing Championship
+To enter the **real** championship (powered by actual iRacing AI races), your team must:
+- ✅ Finish the Mini Stock season (don't go broke)
+- ✅ Raise **$50,000+** in credits (entry fee + travel fund)
+- ✅ Driver overall rating **≥ 45** across all 6 stats
+- ✅ At least **1 regional sponsor** secured
+- ✅ A minimum **reliable crew** (at least 1 staff hire beyond volunteers)
+
+Once qualified, you're in. The real races begin.
+
+---
+
+---
+
 ## 🎮 The 6 Driver Stats → iRacing AI
 
 | Game Stat | iRacing Field | Range | Effect |
