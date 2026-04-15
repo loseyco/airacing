@@ -317,3 +317,35 @@ GAME SERVER (Firebase: airacing DB)
 - Can we run races headless?
 - Trading Paints API access?
 - Max AI grid size?
+- **Local tracks API** — use Google Places API or a motorsport DB to pull real short tracks near the player's hometown for an immersive Mini Stock schedule
+
+---
+
+## 🚛 Vehicle & Fleet Progression
+
+Your operation grows as you succeed. What you haul the car in tells everyone where you stand.
+
+| Stage | Fleet | Description |
+|---|---|---|
+| 1 | **Pickup truck + open trailer** | Handle that yourself. Pray it doesn't rain. |
+| 2 | **Enclosed trailer** | One enclosed. Big upgrade. Looks legit at the track. |
+| 3 | **Box truck** | Full team can ride together. Sleeping in the back, eating gas station food. |
+| 4 | **Semi + enclosed hauler** | You've made it regionally. Two cars max. |
+| 5 | **Full fleet (3–5 cars)** | Sponsor decals on the side. TV coverage. |
+| 6 | **International shipping** | Air freight for F1. Your name is on the pit wall. |
+
+- Each vehicle has **fuel costs, maintenance cost, and capacity** (how many cars fit)
+- **Multiple cars** unlock once you can afford a second driver + vehicle
+- The truck is a character too — it breaks down, needs tires, needs insurance
+- Hauler upgrades = prestige signal to sponsors
+
+---
+
+## 🏁 Multi-Car Team Progression
+
+- **Season 1**: One car, one driver, you and whoever shows up
+- **Season 2**: Hire first paid crew member. Possibly second car if flush
+- **Season 3+**: Two→three car team. Each car needs its own driver, crew, sponsor
+- **Pro Tier**: Run different series simultaneously with different cars/drivers
+- **Elite**: Full factory-backed operation. Multiple countries, multiple series
+
