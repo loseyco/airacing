@@ -203,6 +203,26 @@ transactions/{txId}
 
 ---
 
+## 🚦 Feature Status Rules (CRITICAL)
+
+**Never ship UI code for a feature that doesn't actually work.** If a section is placeholder or future, use the correct label:
+
+| Label | When to Use | UI Tag |
+|---|---|---|
+| `#SOON` | Placeholder section — feature not started. (iRacing community in-joke ✅) | `#SOON` badge in UI |
+| `🚧 Alpha` | Feature exists in code but is experimental / may break | Orange `Alpha` badge |
+| `🔵 Beta` | Feature works but isn't polished or fully tested | Blue `Beta` badge |
+| `✅ Live` | Feature is production-ready and fully working | Green badge or no badge needed |
+
+**Rules:**
+- Do NOT render fake/hardcoded data as if it were real — use empty states instead
+- Do NOT link to pages that show nothing or error
+- If a nav item leads somewhere unfinished, mark it `#SOON` or hide it
+- "Coming Soon" sections are OK on the landing page only — they set expectations
+- Inside the authenticated app, every page must show real data or a clear empty state
+
+---
+
 ## ⚠️ Known Gotchas & Decisions
 
 1. **Firestore DB is named `airacing`** — NOT the default. Must pass `"airacing"` as second arg to `getFirestore()`.
