@@ -45,6 +45,7 @@ export interface Player {
   displayName: string;
   email: string;
   credits: number;
+  role: "player" | "admin" | "superadmin";
   homeLocation: {
     lat: number;
     lng: number;
