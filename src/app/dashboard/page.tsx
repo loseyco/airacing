@@ -87,12 +87,15 @@ export default function DashboardPage() {
             </span>
           </Link>
           <div className="flex items-center gap-6 text-sm">
-            <Link href="/series" className="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors">
-              Series
-            </Link>
-            <Link href="/standings" className="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors">
-              Standings
-            </Link>
+            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-[var(--color-racing-orange)] bg-opacity-10 border border-[var(--color-racing-orange)] border-opacity-20">
+              <span className="text-[10px] font-bold text-[var(--color-racing-orange)] uppercase tracking-wider">Coming Soon</span>
+            </div>
+            <div className="text-[var(--color-text-muted)] cursor-not-allowed">
+               Series
+            </div>
+            <div className="text-[var(--color-text-muted)] cursor-not-allowed">
+               Standings
+            </div>
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--color-bg-card)] border border-[var(--color-border)]">
               <Wallet className="w-4 h-4 text-[var(--color-racing-green)]" />
               <span className="font-bold text-[var(--color-racing-green)]" style={{ fontFamily: "var(--font-mono)" }}>
@@ -247,13 +250,18 @@ export default function DashboardPage() {
 
             {/* Recent Results — Empty State */}
             <div>
-              <h2 className="text-xl font-bold mb-4" style={{ fontFamily: "var(--font-display)" }}>
-                Recent Results
-              </h2>
-              <div className="card p-8 text-center">
+              <div className="flex items-center gap-2 mb-4">
+                <h2 className="text-xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
+                  Recent Results
+                </h2>
+                <span className="px-2 py-0.5 rounded bg-[var(--color-racing-orange)] bg-opacity-10 border border-[var(--color-racing-orange)] border-opacity-20 text-[10px] font-bold text-[var(--color-racing-orange)] uppercase tracking-wider">
+                  Planned
+                </span>
+              </div>
+              <div className="card p-8 text-center bg-gray-900/10 border-dashed">
                 <Trophy className="w-8 h-8 text-[var(--color-text-muted)] mx-auto mb-3" />
                 <p className="text-sm text-[var(--color-text-secondary)]">
-                  No races completed yet. Create a driver and enter your first race!
+                  Race execution system is under construction.
                 </p>
               </div>
             </div>

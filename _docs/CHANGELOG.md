@@ -1,5 +1,25 @@
 # AI Racing Manager — Changelog
 
+## v0.2.0 — 2026-04-14 — "The RPG Core"
+
+### 🛡️ Auth & Identity
+- Integrated **Firebase Auth** with Google Sign-in.
+- Automatic creation of **Firestore Player Profiles** (50,000 starting credits).
+- Protected routes for Dashboard and Driver pages.
+
+### 🏁 Driver Management & RPG
+- **Driver Detail Pages:** Live profile for every driver in your garage.
+- **Training Actions:** Spending credits on Simulator sessions, Coaches, and Testing now boosts live stats.
+- Firestore persistence for all training activities and stat gains.
+- Updated Dashboard with **Live Drivers list** and stat visualization.
+
+### 🎨 Branding & Vision
+- Updated Landing Page with **Drama, Chat Wars, and GridPass Staff** concepts.
+- Added formal **Project Roadmap** to the public site.
+- Integrated **Zach's Story Mode** concept into core game design.
+
+---
+
 ## v0.1.0 — 2026-04-14 — "First Light"
 
 ### 🏗️ Project Foundation

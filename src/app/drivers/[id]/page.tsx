@@ -309,11 +309,36 @@ export default function DriverDetailPage() {
                          </div>
                       </div>
                    </div>
-                   <div className="text-center py-10 text-[var(--color-text-muted)] text-sm italic">
-                      More drama will unfold as the driver enters races.
-                   </div>
                 </div>
              </section>
+
+             {/* Expanded RPG Tabs (Coming Soon) */}
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                <div className="card p-6 border-dashed opacity-75">
+                   <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-bold flex items-center gap-2">
+                         <Users className="w-4 h-4 text-[var(--color-racing-green)]" />
+                         Staff & Crew
+                      </h3>
+                      <span className="text-[10px] font-bold text-[var(--color-racing-orange)] uppercase tracking-wider border border-[var(--color-racing-orange)] px-1.5 py-0.5 rounded bg-[var(--color-racing-orange)] bg-opacity-10">Coming Soon</span>
+                   </div>
+                   <p className="text-xs text-[var(--color-text-secondary)]">
+                      Hire pit crew chiefs and race engineers via GridPass to boost team-wide performance.
+                   </p>
+                </div>
+                <div className="card p-6 border-dashed opacity-75">
+                   <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-bold flex items-center gap-2">
+                         <Handshake className="w-4 h-4 text-[var(--color-racing-blue)]" />
+                         Sponsorships
+                      </h3>
+                      <span className="text-[10px] font-bold text-[var(--color-racing-orange)] uppercase tracking-wider border border-[var(--color-racing-orange)] px-1.5 py-0.5 rounded bg-[var(--color-racing-orange)] bg-opacity-10">Coming Soon</span>
+                   </div>
+                   <p className="text-xs text-[var(--color-text-secondary)]">
+                      Sign real-world brands to fund your team. Milestone-based contracts required.
+                   </p>
+                </div>
+             </div>
           </div>
         </div>
       </main>
