@@ -200,7 +200,7 @@ export default function DashboardPage() {
                       .slice(0, 3);
 
                     return (
-                      <div key={driver.id} className="card p-5 group flex flex-col h-full hover:border-[var(--color-text-muted)] transition-colors">
+                      <Link key={driver.id} href={`/drivers/${driver.id}`} className="card p-5 group flex flex-col h-full hover:border-[var(--color-text-muted)] transition-colors">
                         <div className="flex justify-between items-start mb-4">
                            <div className="flex items-center gap-3">
                              <div className="w-[50px] h-[50px] rounded-lg overflow-hidden flex" style={{ border: `2px solid ${driver.livery.color2}` }}>
@@ -238,7 +238,7 @@ export default function DashboardPage() {
                              )
                            })}
                         </div>
-                      </div>
+                      </Link>
                     )
                   })}
                 </div>
