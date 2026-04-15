@@ -215,10 +215,19 @@ transactions/{txId}
 ## 🛡️ Admin & AI Team
 
 ### Super Admin (Agent Account)
-- The AI agent has its own account for testing purposes
-- **Super admin powers:** Can assume/impersonate any player's account for debugging
+- The AI agent has its own Firebase Auth account for testing
+- **Agent email:** `agent@airacing.gg`
+- **Agent password:** `AiRacing2026!`
+- **Agent UID:** `6CcAfkych0dCNo3lxOgkG6qtSvo2`
+- Can sign in via email/password on the app
 - Can create drivers, enter races, manage teams as if a real player
-- Use this for end-to-end testing of the full game loop
+
+### Admin Hierarchy
+| Email | Role | Powers |
+|---|---|---|
+| `loseyp@gmail.com` | `superadmin` | Full system access, account impersonation |
+| `agent@airacing.gg` | `admin` | House team management, testing |
+| Everyone else | `player` | Standard game access |
 
 ### AI Racing House Team
 - The **"AI Racing"** brand has its own in-game team controlled by the agent
