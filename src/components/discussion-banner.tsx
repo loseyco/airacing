@@ -2,11 +2,14 @@
 
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Bug, HelpCircle, MessagesSquare } from "lucide-react";
+import Link from "next/link";
+import { Bug, HelpCircle, MessagesSquare, Shield } from "lucide-react";
 import { DiscussionModal } from "./discussion-modal";
+import { useAuth } from "@/lib/auth-context";
 
 export function DiscussionBanner() {
   const pathname = usePathname();
+  const { isSuperAdmin } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openDiscussion = () => setIsModalOpen(true);
@@ -31,6 +34,17 @@ export function DiscussionBanner() {
           <span className="hidden md:inline text-neutral-500">
             Internal Dev Tools:
           </span>
+
+          {isSuperAdmin && (
+            <Link 
+              href="/admin"
+              className="flex items-center gap-1.5 hover:text-white transition-colors"
+              title="Superadmin Control Panel"
+            >
+              <Shield size={14} className="text-purple-400" />
+              <span>Control Panel</span>
+            </Link>
+          )}
           
           <button 
             onClick={openDiscussion}

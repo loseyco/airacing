@@ -3,10 +3,16 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // ─── Admin Check ─────────────────────────────────────────────────────────
+    function isSuperAdmin() {
+      return get(/databases/$(database)/documents/players/$(request.auth.uid)).data.role == 'superadmin';
+    }
+
     // ─── Players ────────────────────────────────────────────────────────────
-    // Each player can only read/write their own document (keyed by auth.uid)
+    // Each player can read/write their own document. Superadmins can read all.
     match /players/{playerId} {
-      allow read, write: if request.auth != null && request.auth.uid == playerId;
+      allow read: if request.auth != null && (request.auth.uid == playerId || isSuperAdmin());
+      allow write: if request.auth != null && request.auth.uid == playerId;
     }
 
     // ─── Drivers ────────────────────────────────────────────────────────────
