@@ -178,7 +178,7 @@ export default function OnboardPage() {
                           key={r.id}
                           onClick={() => setRelation(r.id)}
                           className={`card p-4 text-left transition-all ${relation === r.id
-                            ? "border-[var(--color-racing-red)] bg-[rgba(255,62,62,0.06)]"
+                            ? "ring-2 ring-[var(--color-racing-red)] bg-[rgba(255,62,62,0.08)] shadow-[0_0_15px_rgba(255,62,62,0.2)] border-transparent"
                             : "hover:border-[var(--color-text-muted)]"
                           }`}
                         >
@@ -209,7 +209,7 @@ export default function OnboardPage() {
                           key={bg.id}
                           onClick={() => setManagerBg(bg.id)}
                           className={`card p-4 text-left transition-all ${managerBg === bg.id
-                            ? "border-[var(--color-racing-red)] bg-[rgba(255,62,62,0.06)]"
+                            ? "ring-2 ring-[var(--color-racing-red)] bg-[rgba(255,62,62,0.08)] shadow-[0_0_15px_rgba(255,62,62,0.2)] border-transparent"
                             : "hover:border-[var(--color-text-muted)]"
                           }`}
                         >
