@@ -63,10 +63,11 @@ C:\_Projects\airacing/
 │   │   ├── layout.tsx          # Root layout (dark theme)
 │   │   ├── dashboard/          # Player dashboard
 │   │   ├── drivers/            # Driver management
-│   │   │   └── create/         # Driver creation wizard
-│   │   ├── series/             # Browse racing series
-│   │   ├── races/              # Race entry & results
-│   │   └── standings/          # Championship standings
+│   │   │   ├── create/         # Driver creation wizard
+│   │   │   └── [id]/           # Driver detail + RPG training actions
+│   │   ├── series/             # Browse racing series (Coming Soon)
+│   │   ├── races/              # Race entry & results (Coming Soon)
+│   │   └── standings/          # Championship standings (Coming Soon)
 │   ├── components/             # Shared React components
 │   ├── lib/
 │   │   ├── firebase.ts         # Firebase client init
@@ -209,6 +210,11 @@ transactions/{txId}
 4. **This is a STANDALONE project** — Do not import from or depend on SR Commander. Fork what you need.
 5. **Tailwind v4** — Uses `@tailwindcss/postcss`, NOT the old `tailwind.config.js` pattern.
 6. **SR Commander daemon lives at** `C:\_Projects\srcommander\daemon/` — Reference but don't modify.
+7. **🔒 CRITICAL — Security rules MUST be updated whenever a new collection is added.**
+   - **Firestore rules:** `firestore.rules` — deploy with `npx firebase deploy --only firestore:rules`
+   - **Storage rules:** `storage.rules` — deploy with `npx firebase deploy --only storage`
+   - **Rule of thumb:** If you add a collection or storage path in code, add a matching rule BEFORE deploying.
+   - **PowerShell note:** Use semicolons (`;`) to chain commands, not `&&`.
 
 ---
 
@@ -248,10 +254,14 @@ transactions/{txId}
 - [x] Next.js 16 scaffolded
 - [x] Firebase config wired (airacing DB + storage)
 - [x] Core types defined
-- [ ] Global CSS / dark theme
-- [ ] Root layout
-- [ ] Landing page
-- [ ] Driver creation
+- [x] Global CSS / dark theme
+- [x] Root layout with AuthProvider
+- [x] Landing page with real game features + Roadmap section
+- [x] Firebase Auth — Google sign-in, auto player profile creation
+- [x] Driver creation — Firestore save, stat allocation
+- [x] Driver detail — RPG training actions (Simulator, Coach, Testing)
+- [x] Dashboard — Live Firestore drivers list
+- [x] Firestore security rules deployed
 - [ ] Series browser
-- [ ] Race flow
-- [ ] Daemon fork
+- [ ] Race entry & execution flow
+- [ ] Daemon fork + live race automation
