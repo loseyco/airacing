@@ -144,29 +144,83 @@ PJ controls as AI Racing league owner:
 
 ---
 
-## 🎭 Career Mode: From Novice to Legend
+## 🎭 Career Mode: From Zero to Legend
 
-Based on Zach's vision: The game features a structured **Single Player Campaign** that acts as the entry point and "Story" of your team.
+> **You are both the driver and the team owner.** There is no budget to hire anyone. You are broke, passionate, and have everything to prove.
 
-### 🏁 Level 1: The Novice Leagues (Offline)
-- **Gatekeeper:** You cannot join the high-stakes "Real Multi-Player" world until you've proven your merit.
-- **The Grind:** Start in local, Saturday-night short track or club road racing.
-- **Goal:** Attract your first 500 fans and 1 Regional Sponsor.
-- **Sim Mode:** These races are fully simulated by the AI Racing engine but don't require the persistent "Online League" scheduling. They can be triggered "On Demand."
-
-### 🎬 The Narrative Path ("The Movie")
-Players can follow a specific narrative arc:
-- **Cutscenes/Story Beats:** Text-based or pre-recorded "Pit Wall" interactions with your driver.
-- **Key Rivalries:** Specific AI drivers who appear in every series you enter, creating a personal vendetta (e.g., "The House Team" mentioned in AGENTS.md).
-- **Milestones:** "The Callup" — when your performance in the Novice Leagues triggers a contract offer from a National Sponsor, unlocking the "Pro" Tier and Online Leagues.
-
-### 🌐 The Bridge to Multiplayer
-Once you reach the **"Pro Tier"** in Story Mode:
-- Your driver is "certified" for Online League play.
-- You can now enter your drivers into the Global Championship against other real players.
-- You can still play the Story at any time to train rookies in a "safe" environment before throwing them to the wolves.
+This is the true soul of the game. Not a fantasy manager with a fat wallet — a **real racer clawing their way up from nothing**.
 
 ---
+
+### 🏠 Chapter 1 — "The Mini Stock Grind"
+*Season: Local Short Track. Car: Mini Stock. Budget: Almost None.*
+
+You start with:
+- **One car**: A hand-built Mini Stock, half-painted and duct-taped together
+- **Zero paid staff**: Your girlfriend/buddy helps for free — but you still owe them gas money, food, and a thank-you
+- **A truck and trailer**: Every race weekend costs money just to show up — fuel, food, wear on the rig
+- **$15,000 in starting credits**: Enough to get through a season if you're careful
+
+#### 💸 Real Starting Costs Per Race Weekend
+| Expense | Cost |
+|---|---|
+| Entry fee | $150–$500 |
+| Truck + trailer fuel (100 miles) | $120 |
+| Food for crew (2 people, 2 days) | $80 |
+| Tire set | $400 |
+| Crash repair parts (if needed) | $200–$1,500 |
+| **Total risk per weekend** | **$950–$2,600** |
+
+#### 👥 The "Free" Crew
+Your girlfriend/buddy helps out for love, not money. But:
+- You still pay for their meals, fuel, lodging at away races
+- They have a **Morale stat** — skip their birthday weekend for a race and Morale drops → they quit mid-season
+- Their skill level affects your pit stops (unpaid ≠ trained)
+- If you're a jerk to them, they leave. Drama ensues in the **social feed**.
+
+#### 🏁 Winning the Season
+- Finish Top-5 overall → earn your first **Regional Sponsor** ($500/race next season)
+- Win the Championship → unlock **Season 2: Regional Series** and your first *paid* crew hire
+- Get coverage in the local paper → 50 fans. First 500 fans unlock the **GridPass Profile** (real world integration)
+
+---
+
+### 🚐 Chapter 2 — "The Regional Push"
+*Season: Regional Series. Car: Street Stock or Late Model. Budget: Thin.*
+
+Now you can hire 1 paid person. Do you:
+- Hire a **Tire Guy** (faster stops, $800/race) — or
+- Hire a **Crew Chief** (smarter strategy, $1,200/race)?
+
+The girlfriend might still come. Or she might be done with this lifestyle. That's your call, and it matters.
+
+---
+
+### 🌎 Chapter 3 — "The Callup"
+A major sponsor notices your results. A National Series team reaches out with a **paid ride** offer:
+- Accept: You're a hired driver now. Less control, more money.
+- Decline: Stay indie. Your brand, your terms, slower growth.
+- Counter: Negotiate. Maybe a partial team ownership stake.
+
+---
+
+### 🏆 Chapter 4 — Pro & Elite
+- Build a two-car team
+- Hire real engineers via the **GridPass Staff Market**
+- Manage team drama, contract negotiations, sponsor obligations
+- Enter the **Online Global Championship** against other real players
+
+---
+
+### 🔑 Core Narrative Pillars
+1. **You earned everything** — no pay-to-win, no shortcuts
+2. **Relationships matter** — crew morale, rival respect, sponsor trust
+3. **The truck and trailer are real** — travel costs money every single race
+4. **Start small, dream big** — the Mini Stock season is the tutorial *and* the heart of the game
+
+---
+
+## 🎬 Career Mode: The Narrative Path ("The Movie")
 
 ## 🎭 Drama, Rivalries & Social Mechanics
 
