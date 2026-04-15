@@ -1,26 +1,248 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ==========================================
+   AI Racing Manager — Design System
+   Premium dark racing aesthetic
+   ========================================== */
+
+@theme {
+  /* Racing-inspired color palette */
+  --color-bg-primary: #0a0a0f;
+  --color-bg-secondary: #12121a;
+  --color-bg-card: #1a1a28;
+  --color-bg-card-hover: #222236;
+  --color-bg-input: #16162280;
+
+  --color-border: #2a2a40;
+  --color-border-focus: #ff3e3e;
+
+  --color-text-primary: #f0f0f5;
+  --color-text-secondary: #8888aa;
+  --color-text-muted: #55556a;
+
+  /* Racing accent colors */
+  --color-racing-red: #ff3e3e;
+  --color-racing-orange: #ff8800;
+  --color-racing-yellow: #ffcc00;
+  --color-racing-green: #00cc66;
+  --color-racing-blue: #3388ff;
+  --color-racing-purple: #8844ff;
+  --color-racing-cyan: #00ccff;
+
+  /* Gradients */
+  --gradient-racing: linear-gradient(135deg, #ff3e3e, #ff8800);
+  --gradient-dark: linear-gradient(180deg, #0a0a0f, #12121a);
+  --gradient-card: linear-gradient(145deg, #1a1a28, #14141f);
+  --gradient-glow: linear-gradient(135deg, #ff3e3e33, #ff880022, transparent);
+
+  /* Shadows */
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 30px rgba(255, 62, 62, 0.15);
+  --shadow-button: 0 4px 15px rgba(255, 62, 62, 0.3);
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --font-display: "Outfit", "Inter", system-ui, sans-serif;
+
+  /* Spacing */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 62, 62, 0.3);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ==========================================
+   Component Classes
+   ========================================== */
+
+/* Cards */
+.card {
+  background: var(--gradient-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card:hover {
+  border-color: var(--color-racing-red);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--gradient-racing);
+  color: #fff;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-button);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 25px rgba(255, 62, 62, 0.4);
+  filter: brightness(1.1);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  padding: 12px 28px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+.btn-secondary:hover {
+  border-color: var(--color-racing-red);
+  background: rgba(255, 62, 62, 0.08);
+}
+
+/* Inputs */
+.input {
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  outline: none;
+  width: 100%;
+}
+.input:focus {
+  border-color: var(--color-racing-red);
+  box-shadow: 0 0 0 3px rgba(255, 62, 62, 0.12);
+}
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Stat bar */
+.stat-bar {
+  height: 8px;
+  background: var(--color-bg-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.stat-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Glow effects */
+.glow-red {
+  text-shadow: 0 0 20px rgba(255, 62, 62, 0.5);
+}
+.glow-line {
+  background: var(--gradient-racing);
+  height: 2px;
+  border-radius: 1px;
+}
+
+/* Racing stripe accent */
+.racing-stripe {
+  position: relative;
+}
+.racing-stripe::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--gradient-racing);
+  border-radius: 3px;
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.badge-red {
+  background: rgba(255, 62, 62, 0.15);
+  color: var(--color-racing-red);
+  border: 1px solid rgba(255, 62, 62, 0.3);
+}
+.badge-green {
+  background: rgba(0, 204, 102, 0.15);
+  color: var(--color-racing-green);
+  border: 1px solid rgba(0, 204, 102, 0.3);
+}
+.badge-blue {
+  background: rgba(51, 136, 255, 0.15);
+  color: var(--color-racing-blue);
+  border: 1px solid rgba(51, 136, 255, 0.3);
+}
+
+/* Number display (like race positions) */
+.race-position {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Animated background grid */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 62, 62, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 62, 62, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
