@@ -10,11 +10,13 @@
 **AI Racing Manager** is a motorsport management game where players create virtual racing drivers with stats that map **1:1 to iRacing's AI driver parameters**. Races run in real iRacing (or are simulated statistically). Results feed into a game economy with credits, travel costs, upgrades, and championship points.
 
 ### Key URLs
-- **Production:** `airacing.web.app`
+- **Production:** `https://airacing.web.app`
+- **GitHub:** `https://github.com/loseyco/airacing` (branch: `main`)
+- **Facebook:** `https://www.facebook.com/airacingco` (OG page from pre-AI era)
 - **Firebase Console:** `https://console.firebase.google.com/u/0/project/gridpass`
 - **Firestore DB:** Named `airacing` (NOT the default DB — use `getFirestore(app, "airacing")`)
 - **Storage Bucket:** `airacing` (use `getStorage(app, "gs://airacing")`)
-- **GitHub:** `loseyco` org (TBD repo)
+- **Firebase Hosting:** Site ID `airacing` — deploy via `npx firebase deploy --only hosting:airacing`
 
 ---
 
@@ -76,7 +78,9 @@ C:\_Projects\airacing/
 ├── daemon/                     # Python iRacing bridge (forked from SR Commander)
 ├── public/                     # Static assets
 └── _docs/                      # Project documentation
-    └── CHANGELOG.md            # What changed and when
+    ├── CHANGELOG.md             # What changed and when
+    ├── ROADMAP.md               # 5-phase development roadmap + research questions
+    └── GAME_DESIGN.md           # Full game design doc (aging, staff, sponsors, economy)
 ```
 
 ---
