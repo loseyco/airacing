@@ -226,7 +226,10 @@ export default function OnboardPage() {
                     onClick={() => setStep("driver")}
                     className={`w-full btn-primary py-4 flex items-center justify-center gap-2 ${!canProceedYou ? "opacity-40 cursor-not-allowed" : ""}`}
                   >
-                    Now, tell us about {relation ? `your ${relationships.find(r => r.id === relation)?.label.toLowerCase()}` : "your driver"}
+                    {!canProceedYou 
+                      ? "Fill out all fields to continue" 
+                      : `Now, tell us about ${relation ? relationships.find(r => r.id === relation)?.label.toLowerCase() : "your driver"}`
+                    }
                     <ChevronRight className="w-5 h-5" />
                   </button>
                 </div>
