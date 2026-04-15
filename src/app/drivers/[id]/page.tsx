@@ -19,7 +19,10 @@ import {
   MessageSquare,
   ChevronRight,
   Loader2,
-  Wallet
+  Wallet,
+  Users,
+  Handshake,
+  BarChart3
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { db } from "@/lib/firebase";
