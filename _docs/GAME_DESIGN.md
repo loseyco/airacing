@@ -50,6 +50,32 @@ Once qualified, you're in. The real races begin.
 
 ---
 
+## 💰 Starting Economy — "We're Broke But We're Here"
+
+Every team starts with **$50,000**. Sounds like a lot. It isn't.
+
+Before you can race a single lap, you need to buy your operation:  
+
+| Item | Cost | Notes |
+|---|---|---|
+| 🛻 **Pickup Truck** | ~$12,000 | Used, high miles. Hauls the car and the crew. |
+| 🚐 **Open Trailer** | ~$5,000 | Basic. Pray it doesn't rain. |
+| 🏎️ **iRacing Mini Stock** | ~$15,000 | Used car, baseline setup. Nothing fancy. |
+| 🔧 **Tools & Spares Kit** | ~$3,000 | You'll need them. Trust us. |
+| 📋 **Race Entry Fee (Race 1)** | ~$500 | Just to show up. |
+| ⛽ **First Trip Fuel & Food** | ~$800 | Gas money, gas station food, energy drinks. |
+
+**Total to get to Race 1: ~$36,300**  
+**Left in the bank: ~$13,700**
+
+That's your buffer for the rest of the season. Every race costs money to enter, haul to, and finish. One bad wreck and you're skipping a week to save up.
+
+> This is the tutorial. The Mini Stock season teaches you the economy before the real money shows up.
+
+
+
+---
+
 ---
 
 ## 🎮 The 6 Driver Stats → iRacing AI
