@@ -2,14 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Flag, ArrowLeft, Rocket, Calendar, Trophy, Users } from "lucide-react";
-
-const upcoming = [
-  { icon: Trophy, label: "GR86 Cup", desc: "Entry-level road series — great for rookies", color: "#00cc66" },
-  { icon: Calendar, label: "ARCA Menards Series", desc: "Intermediate oval racing, 12-race season", color: "#ff8800" },
-  { icon: Rocket, label: "NASCAR Truck Series", desc: "High-skill oval. Earn your way in.", color: "#ff3e3e" },
-  { icon: Users, label: "GT3 Sprint Series", desc: "Elite road racing for the best teams", color: "#8844ff" },
-];
+import { Flag, ArrowLeft, Rocket, Calendar } from "lucide-react";
 
 export default function SeriesPage() {
   return (
@@ -31,11 +24,12 @@ export default function SeriesPage() {
         </div>
       </nav>
 
-      <main className="max-w-4xl mx-auto px-6 py-20 text-center">
+      <main className="max-w-2xl mx-auto px-6 py-24 text-center">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-[#ff880033] bg-[#ff880008]">
-            <Rocket className="w-4 h-4 text-[#ff8800]" />
-            <span className="text-sm text-[#ff8800] font-medium">Coming Soon — Season 1 Launching Shortly</span>
+          {/* #SOON badge */}
+          <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-[#ff880033] bg-[#ff880008]">
+            <Calendar className="w-4 h-4 text-[#ff8800]" />
+            <span className="text-sm text-[#ff8800] font-bold">#SOON</span>
           </div>
 
           <h1 className="text-5xl font-black mb-4" style={{ fontFamily: "var(--font-display)" }}>
@@ -44,33 +38,36 @@ export default function SeriesPage() {
               Series
             </span>
           </h1>
-          <p className="text-[var(--color-text-secondary)] mb-16 max-w-lg mx-auto">
-            Series are being finalized. Create your driver now so you're ready to enter the moment Season 1 opens.
+
+          <p className="text-[var(--color-text-secondary)] mb-4 max-w-lg mx-auto text-lg leading-relaxed">
+            The Series Browser opens once you've qualified for the{" "}
+            <span className="text-[var(--color-text-primary)] font-semibold">AI Racing Championship</span>.
+          </p>
+          <p className="text-[var(--color-text-muted)] mb-12 text-sm max-w-md mx-auto">
+            Finish your Mini Stock season, earn $50K+, hit OVR 45, and lock down a sponsor. <em>Then</em> we talk series.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left max-w-2xl mx-auto mb-12">
-            {upcoming.map((s, i) => (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="card p-5 border-l-4 opacity-80"
-                style={{ borderLeftColor: s.color }}
-              >
-                <div className="flex items-center gap-3 mb-2">
-                  <s.icon className="w-5 h-5" style={{ color: s.color }} />
-                  <span className="font-bold">{s.label}</span>
-                  <span className="ml-auto text-[10px] font-bold text-[var(--color-racing-orange)] uppercase tracking-wider border border-[var(--color-racing-orange)] px-1.5 py-0.5 rounded bg-[var(--color-racing-orange)] bg-opacity-10">TBD</span>
-                </div>
-                <p className="text-xs text-[var(--color-text-secondary)]">{s.desc}</p>
-              </motion.div>
-            ))}
+          <div className="card p-8 border-dashed mb-10 text-left max-w-sm mx-auto">
+            <div className="text-sm font-bold uppercase tracking-widest text-[var(--color-text-muted)] mb-4">Championship Entry Requirements</div>
+            <ul className="space-y-3">
+              {[
+                "✅  Complete the Mini Stock season",
+                "💰  $50,000+ in credits",
+                "📊  Driver OVR ≥ 45",
+                "🤝  1 regional sponsor secured",
+                "👥  At least 1 paid crew hire",
+              ].map(r => (
+                <li key={r} className="text-sm text-[var(--color-text-secondary)]">{r}</li>
+              ))}
+            </ul>
           </div>
 
-          <Link href="/drivers/create" className="btn-primary inline-flex items-center gap-2">
-            Create a Driver Now
-          </Link>
+          <div className="flex justify-center gap-4">
+            <Link href="/dashboard" className="btn-primary inline-flex items-center gap-2">
+              <Rocket className="w-4 h-4" />
+              Back to Garage
+            </Link>
+          </div>
         </motion.div>
       </main>
     </div>

@@ -14,7 +14,6 @@ import {
   Trophy,
   Wallet,
   Plus,
-  Calendar,
   TrendingUp,
   Clock,
   ChevronRight,
@@ -312,15 +311,7 @@ export default function DashboardPage() {
               <div className="space-y-2">
                 <Link href="/drivers/create" className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[var(--color-bg-card-hover)] transition-colors">
                   <Plus className="w-4 h-4 text-[var(--color-racing-green)]" />
-                  <span className="text-sm">New Driver</span>
-                </Link>
-                <Link href="/series" className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[var(--color-bg-card-hover)] transition-colors">
-                  <Calendar className="w-4 h-4 text-[var(--color-racing-blue)]" />
-                  <span className="text-sm">Browse Series</span>
-                </Link>
-                <Link href="/standings" className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[var(--color-bg-card-hover)] transition-colors">
-                  <Trophy className="w-4 h-4 text-[var(--color-racing-yellow)]" />
-                  <span className="text-sm">Standings</span>
+                  <span className="text-sm">Create a Driver</span>
                 </Link>
               </div>
             </div>
