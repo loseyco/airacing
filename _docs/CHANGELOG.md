@@ -1,5 +1,27 @@
 # AI Racing Manager — Changelog
 
+## v0.3.0 — 2026-04-15 — "The Marketplace Mistake"
+
+### 📖 Origin Story Redesign
+- **New Narrative Framing:** Your driver bought an iRacing Mini Stock off Facebook Marketplace. They need your help to run it.
+- **Onboarding Overhaul:** Step 1 now centers around your *relationship* to the driver (Friend, Son, Daughter, Brother, Coworker, etc.).
+- **Starter Class Lock:** The iRacing Mini Stock is now hard-locked as the starter class in Step 2.
+- **Starting Economy Overhaul:** You start with $50,000, but the documents (and soon gameplay) factor in the cost of buying a truck, trailer, and prep, effectively leaving ~$14K for the starting season. 
+
+### 🧹 The Clean Slate Initiative
+- **"No Mock Data" Rule Enforced:** All mock/fake text removed from the site.
+- Dashboard quick-actions simplified. "Series" and "Standings" placeholder modules updated to show dynamic `#SOON` and clean empty states until Phase 4/5 integration.
+- Driver Detail page rebuilt to check real `driver.races` counts and display a "No Races Yet" state instead of hardcoded results.
+- Dashboard "Your Journey" section now correctly pulls boolean flags from the Firebase Player object.
+
+### 🏗️ Build & Deployment Fixes
+- Removed dynamic fallback `/drivers/[id]` folder which was blocking Turbopack Static Export.
+- Converted all targeted parameter pages (`/driver`, `/drivers/create`) to use `?id=` query params.
+- Wrapped all `useSearchParams()` calls in explicit `Suspense` outer boundaries.
+- **Build Clean:** Validated static generation for 10/10 pages. Deploy successful to `airacing.web.app`.
+
+---
+
 ## v0.2.0 — 2026-04-14 — "The RPG Core"
 
 ### 🛡️ Auth & Identity
@@ -41,8 +63,3 @@
 - Set up Firebase Hosting (`firebase.json`, site: `airacing`)
 - Deployed to **airacing.web.app**
 - Pushed to **github.com/loseyco/airacing** (branch: `main`)
-
-### 📋 Known Issues
-- All pages use mock data (Firebase Auth + Firestore not yet wired)
-- No race execution pipeline yet
-- Driver aging/staff/sponsors not yet implemented (designed, not built)

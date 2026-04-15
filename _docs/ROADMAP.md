@@ -1,61 +1,44 @@
 # AI Racing Manager — Roadmap
 
-## 🏁 Phase 1: Core Game Loop (IN PROGRESS)
-> Get one driver through one race and back.
+## 🏁 Phase 1 - 3: Project Up & Live (COMPLETED)
+> Establish the initial platform, authentication, identity, and the pure Origin Story.
 
-- [x] Project scaffold (Next.js 16, Firebase, Tailwind v4)
-- [x] Landing page deployed to `airacing.web.app`
-- [x] Driver creation UI (6 stats, livery, 200-point budget)
-- [x] Series browser + standings pages
-- [ ] **Firebase Auth** — Google sign-in, player profiles
-- [ ] **Firestore wiring** — Save/load drivers, credits, transactions
-- [ ] **Race entry flow** — Pick race, pay entry + travel, confirm
-- [ ] **Race execution** — Generate roster.json/season.json → daemon runs iRacing
-- [ ] **Results processing** — Parse results → update credits, XP, standings
+- [x] Project scaffold (Next.js 16, Firebase, Tailwind v4, Static Export)
+- [x] Firebase Auth (Google) & Firestore DB persistence
+- [x] Landing Page — "Marketplace Mistake" origin narrative
+- [x] Manager Creation — Relationship definition (Son, Friend, Partner)
+- [x] Driver Creation UI — 6-stat point allocator (200 budget), persistent traits
+- [x] Dashboard — Dynamic Journey checklist, persistent wallet calculation ($50,000 start)
+- [x] RPG Actions — Train drivers (Simulator, Coaches) for stat boosts
+- [x] Deployed live to `airacing.web.app` (10 clean static pages)
 
-## 🧓 Phase 2: Driver Lifecycle & Team Management
-> The depth that makes the game sticky.
+## 🏎️ Phase 4: Simulated Mini Stock Season (NEXT)
+> The tutorial. Manage your money, survive local short tracks, and qualify for the big time.
 
-- [ ] **Driver aging** — +0.5 years/race, peak window, forced retirement at 46+
-- [ ] **Stat decline** — Natural drop after age 35, injury acceleration
-- [ ] **Rookie Academy** — Create young (16-18) cheap drivers
-- [ ] **Training programs** — Spend credits to boost stats between races
-- [ ] **Paid drivers** — Rich rookies who pay YOU to race (poor stats)
-- [ ] **Free agent market** — Hire released veteran drivers
-- [ ] **Multi-driver teams** — Run 2-4 cars, manage roster
+- [ ] **Simulated Race Engine:** Statistical results (no iRacing execution needed yet).
+- [ ] **Local Tracks API:** Query Google Places for 8 real short/dirt tracks near the Manager's hometown.
+- [ ] **Starting Economy Core:** Buying the used truck, trailer, and base car prep before Race 1.
+- [ ] **Race Costs:** Fuel, tires, entry fees, and random repair events.
+- [ ] **Qualification Rules:** Finish the season with OVR > 45, > $50,000 cash, and at least 1 staff/sponsor to jump to Phase 5.
 
-## 🔧 Phase 3: Staff & Infrastructure
-> Team-wide upgrades that affect all your drivers.
+## 🏆 Phase 5: AI Racing Championship 
+> The real game. Hardcore competition via actual iRacing AI simulation.
 
-- [ ] **Pit Crew Chief** — Team pit stop speed bonus
-- [ ] **Race Engineer** — Strategy bonus for all drivers
-- [ ] **Driver Coach** — 2x XP gains from racing
-- [ ] **Spotter** — Reduce incident rates
-- [ ] **Data Analyst** — Unlock telemetry insights UI
-- [ ] **Team Manager** — Negotiate bigger sponsor deals
-- [ ] Staff leveling (1-10) with escalating salaries
+- [ ] **Series Browser:** Parse real iRacing season `JSON` data for tracks and parameters.
+- [ ] **Race Entry Flow:** Pay heavy entry fees, travel costs, and commit.
+- [ ] **Real Execution Sync:** Web app generates `roster.json` → daemon runs headless iRacing → updates results.
+- [ ] **Results Processing:** Parse final standings to award XP, credits, and driver fatigue/morale.
 
-## 🤝 Phase 4: Sponsors & Economy
-> Real brands, real contracts, real consequences.
+## 🧓 Phase 6: Deep Team Management & Depth
+> Real lifecycle features that make the manager stick around for 10 in-game years.
 
-- [ ] **Sponsor tiers** — Local → Regional → National → Premium → Title
-- [ ] **Performance contracts** — Meet goals or lose the sponsor
-- [ ] **iRacing sponsor mapping** — Game sponsors = actual car decals
-- [ ] **Trading Paints integration** — Premium liveries with real logos
-- [ ] **League owner tools** — PJ controls series creation, prize pools, rules
+- [ ] **Staff & Crew:** Volunteer crew vs paid engineers via GridPass hiring pools.
+- [ ] **Sponsors & Brands:** Performance milestones. iRacing setups dynamically receive branded Trading Paints liveries based on game-state contracts.
+- [ ] **Driver Lifecycle:** Aging drops stats. Retirement. Rookie scouting academies. Multi-driver teams and semi/hauler fleet growth.
+- [ ] **Drama System:** In-game social feeds. Driver behavioral actions based on their selected traits (e.g. Overconfident wrecks on lap 1).
 
-## 🌐 Phase 5: Multiplayer & Broadcasts
-> Multiple players competing in the same races.
+## 🌐 Phase 7: Multiplayer Expansion
+> The final frontier. Competing against other players' AI drivers.
 
-- [ ] **Multi-player races** — Different players' AI drivers on same grid
-- [ ] **League system** — Promotion/relegation between tiers
-- [ ] **Live broadcasts** — Automated camera + commentary
-- [ ] **Twitch/YouTube integration** — Race streaming
-- [ ] **Real prizes** — Merch, credits, promotions for top players
-
-## 🔬 Research Questions
-- [ ] Can we assign custom setups to AI drivers? (roster has `carPath`/`carId` but no setup field — needs testing)
-- [ ] Does `driverAge` in roster actually affect AI behavior, or just cosmetic?
-- [ ] Can we run races headless (no monitor) for background processing?
-- [ ] Trading Paints API access — do they have one?
-- [ ] What's the max grid size iRacing supports for AI?
+- [ ] **Grid Population:** Push your driver to a shared Cloud grid.
+- [ ] **League System:** Promotion/relegation between tiered online splits.
