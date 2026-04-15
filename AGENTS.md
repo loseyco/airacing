@@ -12,10 +12,11 @@
 ### Key URLs
 - **Production:** `https://airacing.web.app`
 - **GitHub:** `https://github.com/loseyco/airacing` (branch: `main`)
-- **Facebook:** `https://www.facebook.com/airacingco` (OG page from pre-AI era)
-- **Firebase Console:** `https://console.firebase.google.com/u/0/project/gridpass`
-- **Firestore DB:** Named `airacing` (NOT the default DB — use `getFirestore(app, "airacing")`)
-- **Storage Bucket:** `airacing` (use `getStorage(app, "gs://airacing")`)
+- **Facebook:** `https://www.facebook.com/airacingco`
+- **Firebase Console:** `https://console.firebase.google.com/u/0/project/gridpass/overview`
+- **Firestore DB (airacing):** `https://console.firebase.google.com/u/0/project/gridpass/firestore/databases/airacing/data`
+- **Firestore Rules (airacing):** `https://console.firebase.google.com/u/0/project/gridpass/firestore/databases/airacing/security/rules`
+- **Storage Rules (airacing):** `https://console.firebase.google.com/u/0/project/gridpass/storage/airacing.firebasestorage.app/rules`
 - **Firebase Hosting:** Site ID `airacing` — deploy via `npx firebase deploy --only hosting:airacing`
 
 ---
@@ -210,11 +211,12 @@ transactions/{txId}
 4. **This is a STANDALONE project** — Do not import from or depend on SR Commander. Fork what you need.
 5. **Tailwind v4** — Uses `@tailwindcss/postcss`, NOT the old `tailwind.config.js` pattern.
 6. **SR Commander daemon lives at** `C:\_Projects\srcommander\daemon/` — Reference but don't modify.
-7. **🔒 CRITICAL — Security rules MUST be updated whenever a new collection is added.**
-   - **Firestore rules:** `firestore.rules` — deploy with `npx firebase deploy --only firestore:rules`
-   - **Storage rules:** `storage.rules` — deploy with `npx firebase deploy --only storage`
-   - **Rule of thumb:** If you add a collection or storage path in code, add a matching rule BEFORE deploying.
+7. **🔒 CRITICAL — Security rules MUST be updated whenever a new collection or storage path is added.**
+   - **Firestore rules:** Edit and publish directly at the [Firestore Rules Console](https://console.firebase.google.com/u/0/project/gridpass/firestore/databases/airacing/security/rules) — the CLI does NOT reliably deploy to named databases.
+   - **Storage rules:** Edit and publish directly at the [Storage Rules Console](https://console.firebase.google.com/u/0/project/gridpass/storage/airacing.firebasestorage.app/rules)
+   - **Rule of thumb:** If you add a collection or storage path in code, add a matching rule BEFORE deploying the hosting update.
    - **PowerShell note:** Use semicolons (`;`) to chain commands, not `&&`.
+   - **Named DB gotcha:** Our Firestore database is named `airacing`, NOT `(default)`. Rules must target the `airacing` database specifically via the console link above.
 
 ---
 
